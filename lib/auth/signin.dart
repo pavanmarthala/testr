@@ -221,11 +221,12 @@ class _SingINState extends State<SingIN> {
                         ),
                         ElevatedButton(
                             onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => Homepage(),
-                                ),
-                              );
+                              if (formkey.currentState!.validate()) {
+                                login(
+                                  _usernameController.text.toString(),
+                                  _passwordController.text.toString(),
+                                );
+                              }
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor:
