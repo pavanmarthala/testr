@@ -8,6 +8,7 @@ import 'package:eco/pages/info/user_info.dart';
 import 'package:eco/pages/userlandingpage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -18,6 +19,18 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   final _advancedDrawerController = AdvancedDrawerController();
+  void logout() async {
+    // Clear user login details from shared preferences
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('username');
+    prefs.remove('password');
+    prefs.remove('jwt_token');
+
+    // Navigate back to the login page
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => SingIN()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,12 +84,8 @@ class _HomepageState extends State<Homepage> {
           ),
           actions: [
             IconButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => SingIN(),
-                    ),
-                  );
+                onPressed: () async {
+                  logout();
                 },
                 icon: Icon(
                   Icons.exit_to_app,
