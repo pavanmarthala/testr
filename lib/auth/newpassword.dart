@@ -95,7 +95,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                             onPressed: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) => const SingIN(),
+                                  builder: (context) => SingIN(),
                                 ),
                               );
                             },

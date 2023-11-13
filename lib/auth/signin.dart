@@ -1,20 +1,120 @@
+import 'dart:convert';
+import 'package:eco/auth/forgot.dart';
 import 'package:eco/auth/register.dart';
 import 'package:eco/pages/homepage.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:http/http.dart' as http;
+
 import 'package:flutter/material.dart';
-import 'package:eco/auth/forgot.dart';
+// import 'package:ecohex/auth/forgot.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SingIN extends StatefulWidget {
-  const SingIN({Key? key});
-
   @override
   State<SingIN> createState() => _SingINState();
 }
 
 class _SingINState extends State<SingIN> {
   final formkey = GlobalKey<FormState>();
+
   final _usernameController = TextEditingController();
+
   final _passwordController = TextEditingController();
-  bool _obscureText = true;
+  bool _obscureText = true; // Initially obscure text
+  @override
+  void initState() {
+    super.initState();
+    checkLoggedInStatus(); // Check the login status when the screen initializes
+  }
+
+  // Function to check the login status
+  void checkLoggedInStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? username = prefs.getString('username');
+    String? password = prefs.getString('password');
+
+    if (username != null && password != null) {
+      login(username, password);
+    }
+  }
+
+  void login(String user, password) async {
+    final Map<String, dynamic> requestData = {
+      "password": password,
+      "userId": user,
+    };
+
+    try {
+      final response = await http.post(
+        Uri.parse('https://api.ecohex.in/auth/login'),
+        body: jsonEncode(requestData),
+        headers: {'Content-Type': 'application/json'},
+      );
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body.toString());
+        print(data);
+
+        print('account login sucessfully');
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('username', user);
+        prefs.setString('password', password);
+        prefs.setString('jwt_token', data['token']);
+
+        // Decode the token to check user role
+        final Map<String, dynamic> decodedToken =
+            JwtDecoder.decode(data['token']);
+        List<dynamic> authorities = decodedToken['authorities'];
+
+        if (authorities.contains('superAdmin') ||
+            (authorities.contains('admin'))) {
+          // Navigate to the admin panel (Adminlandingpage)
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => Homepage(),
+            ),
+          );
+        } else {
+          // Navigate to the user panel (Landingpage)
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => Homepage(),
+            ),
+          );
+        }
+      } else {
+        // Show a toast message for wrong credentials
+        // Fluttertoast.showToast(
+        //   msg: "Wrong credentials. Try again!",
+        //   toastLength: Toast.LENGTH_SHORT,
+        //   gravity: ToastGravity.BOTTOM,
+        //   timeInSecForIosWeb: 3,
+        //   backgroundColor: Colors.red,
+        //   textColor: Colors.white,
+        // );
+        //Simple to use, no global configuration
+        showToast(
+          "Wrong credentials. Try again!",
+          position: StyledToastPosition.bottom,
+          context: context,
+          animation: StyledToastAnimation.slideFromBottom,
+          reverseAnimation: StyledToastAnimation.slideToBottom,
+          duration: Duration(seconds: 4),
+          animDuration: Duration(seconds: 1),
+          curve: Curves.elasticOut,
+          reverseCurve: Curves.linear,
+          // backgroundColor: Colors.red,
+          textStyle: TextStyle(color: Colors.white, fontSize: 16),
+        );
+
+//Customize toast content widget, no global configuration
+        // showToastWidget(Text('hello styled toast'), context: context);
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -77,14 +77,16 @@ class _HomepageState extends State<AssestsHomepage> {
                     height: MediaQuery.of(context).size.height * 0.2,
                     width: MediaQuery.of(context).size.height * 0.5,
                     decoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        image: DecorationImage(
+                          image: AssetImage('assets/crops_image.jpg'),
+                          fit: BoxFit.cover,
+                          // height: MediaQuery.of(context).size.height * 0.2, // Adjust the height as needed
+                          // width: MediaQuery.of(context).size.height * 0.5,
+                        ),
+                        // Image.asset('assets/EcoHex_Logo-removebg-preview.png'),
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(15)),
-                    child: Center(
-                        child: const Text(
-                      'Trees',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    )),
                   ),
                 ),
               ),
@@ -121,14 +123,14 @@ class _HomepageState extends State<AssestsHomepage> {
                     height: MediaQuery.of(context).size.height * 0.2,
                     width: MediaQuery.of(context).size.height * 0.5,
                     decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/Trees_image.png'),
+                          fit: BoxFit.cover,
+                          // height: MediaQuery.of(context).size.height * 0.2, // Adjust the height as needed
+                          // width: MediaQuery.of(context).size.height * 0.5,
+                        ),
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(15)),
-                    child: Center(
-                        child: const Text(
-                      'plants',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    )),
                   ),
                 ),
               ),

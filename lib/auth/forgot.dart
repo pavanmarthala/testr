@@ -82,7 +82,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           height: 80, // Set the desired height
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage("assets/EcoHex Logo.png"),
+                              image: AssetImage(
+                                  "assets/EcoHex_Logo-removebg-preview.png"),
                               fit: BoxFit.cover,
                             ),
                           ),
