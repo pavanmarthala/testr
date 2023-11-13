@@ -115,7 +115,6 @@ class _MydrawerState extends State<Mydrawer> {
                     child:
                         Image.asset("assets/EcoHex_Logo-removebg-preview.png"),
                   ),
-
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
@@ -143,7 +142,7 @@ class _MydrawerState extends State<Mydrawer> {
                   ),
                   Container(
                     // color: Colors.black,
-                    height: 500,
+                    height: 540,
                     child: ListView(
                       children: filteredDeviceList.map((device) {
                         return Padding(
@@ -218,7 +217,7 @@ class _MydrawerState extends State<Mydrawer> {
                       }).toList(),
                     ),
                   ),
-                  // Spacer(),
+                  Spacer(),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
