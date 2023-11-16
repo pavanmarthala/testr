@@ -120,8 +120,11 @@ class _MydrawerState extends State<Mydrawer> {
                     child: Container(
                       width: MediaQuery.of(context).size.height * 0.5,
                       height: 50,
+                      // color: Colors.black,
                       child: TextField(
-                        onChanged: (value) {},
+                        onChanged: (value) {
+                          filterDevices(value);
+                        },
                         decoration: InputDecoration(
                           contentPadding:
                               EdgeInsets.symmetric(horizontal: 20, vertical: 0),
@@ -137,26 +140,28 @@ class _MydrawerState extends State<Mydrawer> {
                       ),
                     ),
                   ),
-                  Expanded(
+                  Container(
+                    // color: Colors.black,
+                    height: 540,
                     child: ListView(
                       children: filteredDeviceList.map((device) {
                         return Padding(
                           padding: const EdgeInsets.only(left: 10, top: 20),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => Homepage(),
-                                ),
-                              );
-                            },
-                            child: Container(
-                              width: MediaQuery.of(context).size.height * 0.5,
-                              height: 110,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                border: Border.all(),
-                              ),
+                          child: Container(
+                            width: MediaQuery.of(context).size.height * 0.5,
+                            height: 110,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              border: Border.all(),
+                            ),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => Homepage(),
+                                  ),
+                                );
+                              },
                               child: Column(
                                 children: [
                                   Padding(
@@ -212,7 +217,7 @@ class _MydrawerState extends State<Mydrawer> {
                       }).toList(),
                     ),
                   ),
-                  // Spacer(),
+                  Spacer(),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
