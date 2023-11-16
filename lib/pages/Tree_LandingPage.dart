@@ -205,7 +205,7 @@ class _TreeLandinpPageState extends State<TreeLandinpPage> {
                                         child: Row(
                                           children: [
                                             const Text('ID'),
-                                            SizedBox(width: 160),
+                                            SizedBox(width: 145),
                                             Text(
                                               device["id"] ?? "",
                                             ),
