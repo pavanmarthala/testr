@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:eco/auth/forgot.dart';
 import 'package:eco/auth/register.dart';
+import 'package:eco/pages/User_HomePage.dart';
 import 'package:eco/pages/homepage.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:http/http.dart' as http;
@@ -72,14 +73,14 @@ class _SingINState extends State<SingIN> {
           // Navigate to the admin panel (Adminlandingpage)
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => Homepage(),
+              builder: (context) => UserHomePage(),
             ),
           );
         } else {
           // Navigate to the user panel (Landingpage)
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => Homepage(),
+              builder: (context) => UserHomePage(),
             ),
           );
         }
