@@ -11,8 +11,9 @@ import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Homepage extends StatefulWidget {
-  const Homepage({Key? key}) : super(key: key);
+  final String userId;
 
+  Homepage(this.userId);
   @override
   _HomepageState createState() => _HomepageState();
 }
@@ -25,8 +26,8 @@ class _HomepageState extends State<Homepage> {
   void initState() {
     super.initState();
     screens = [
-      UserInfo(),
-      TreeLandinpPage(),
+      UserInfo(widget.userId),
+      TreeLandinpPage(widget.userId),
       PlantsLandingPage(),
     ];
   }
@@ -83,11 +84,11 @@ class _HomepageState extends State<Homepage> {
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [Colors.teal, Colors.blue],
+                colors: const [Colors.teal, Colors.blue],
               ),
             ),
           ),
-          title: const Text(
+          title: Text(
             'Home page',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
@@ -132,7 +133,7 @@ class _HomepageState extends State<Homepage> {
             selectedIndex: index,
             onDestinationSelected: (index) =>
                 setState(() => this.index = index),
-            destinations: [
+            destinations: const [
               NavigationDestination(
                 icon: Icon(Icons.person),
                 label: 'User Info',

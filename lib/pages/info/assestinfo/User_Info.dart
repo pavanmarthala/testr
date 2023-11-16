@@ -1,8 +1,16 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
-class UserInfo extends StatelessWidget {
-  const UserInfo({Key? key}) : super(key: key);
+class UserInfo extends StatefulWidget {
+  final String userid;
+  UserInfo(this.userid, {super.key});
 
+  @override
+  State<UserInfo> createState() => _UserInfoState();
+}
+
+class _UserInfoState extends State<UserInfo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,10 +40,11 @@ class UserInfo extends StatelessWidget {
             child: Scrollbar(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
+                // ignore: prefer_const_literals_to_create_immutables
                 children: <Widget>[
                   UserInfoRow(
                       label: 'ID',
-                      value: '213',
+                      value: "${widget.userid}",
                       gradientColors: [Colors.blue, Colors.teal]),
                   UserInfoRow(
                       label: 'Email',

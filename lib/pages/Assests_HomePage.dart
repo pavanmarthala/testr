@@ -78,7 +78,7 @@ class _HomepageState extends State<AssetsHomePage> {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => TreeInfo(),
+                        builder: (context) => TreeInfo(''),
                       ),
                     );
                   },
@@ -197,7 +197,7 @@ class _HomepageState extends State<AssetsHomePage> {
                         onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => const AssestsHomepage(),
+                              builder: (context) => const AssetsHomePage(),
                             ),
                           );
 

@@ -111,7 +111,7 @@ class _MydrawerState extends State<Mydrawer> {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 50),
+                    padding: const EdgeInsets.only(top: 40),
                     child:
                         Image.asset("assets/EcoHex_Logo-removebg-preview.png"),
                   ),
@@ -119,7 +119,7 @@ class _MydrawerState extends State<Mydrawer> {
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
                       width: MediaQuery.of(context).size.height * 0.5,
-                      height: 50,
+                      height: MediaQuery.of(context).size.height * 0.07,
                       // color: Colors.black,
                       child: TextField(
                         onChanged: (value) {
@@ -142,7 +142,7 @@ class _MydrawerState extends State<Mydrawer> {
                   ),
                   Container(
                     // color: Colors.black,
-                    height: 540,
+                    height: MediaQuery.of(context).size.height * 0.66,
                     child: ListView(
                       children: filteredDeviceList.map((device) {
                         return Padding(
@@ -154,11 +154,13 @@ class _MydrawerState extends State<Mydrawer> {
                               borderRadius: BorderRadius.circular(15),
                               border: Border.all(),
                             ),
-                            child: GestureDetector(
+                            child: InkWell(
                               onTap: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => Homepage(),
+                                    builder: (context) => Homepage(
+                                      device["id"] ?? "",
+                                    ),
                                   ),
                                 );
                               },
@@ -217,9 +219,9 @@ class _MydrawerState extends State<Mydrawer> {
                       }).toList(),
                     ),
                   ),
-                  Spacer(),
+                  // Spacer(),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(
@@ -229,8 +231,8 @@ class _MydrawerState extends State<Mydrawer> {
                         );
                       },
                       child: Container(
-                        height: 55,
-                        width: MediaQuery.of(context).size.height * 0.5,
+                        height: MediaQuery.of(context).size.height * 0.07,
+                        // width: MediaQuery.of(context).size.height * 0.05,
                         decoration: BoxDecoration(
                             color: Colors.white38,
                             borderRadius: BorderRadius.circular(15)),
