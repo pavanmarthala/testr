@@ -2,16 +2,16 @@
 
 import 'package:flutter/material.dart';
 
-class AddTree extends StatefulWidget {
-  const AddTree({super.key});
+class AddPlant extends StatefulWidget {
+  const AddPlant({super.key});
 
   @override
-  State<AddTree> createState() => _dataState();
+  State<AddPlant> createState() => _dataState();
 
   // void onDeviceAdded(String deviceName) {}
 }
 
-class _dataState extends State<AddTree> {
+class _dataState extends State<AddPlant> {
   @override
   Widget build(BuildContext context) {
     final _lastnameController = TextEditingController();
@@ -51,7 +51,7 @@ class _dataState extends State<AddTree> {
                 height: 20,
               ),
               Text(
-                'Age Of The Tree (years)',
+                'Age Of The Plant (years)',
                 style: Theme.of(context).textTheme.headline6,
               ),
               TextField(
@@ -64,7 +64,7 @@ class _dataState extends State<AddTree> {
                 height: 20,
               ),
               Text(
-                'Number Of Trees',
+                'Number Of Plant',
                 style: Theme.of(context).textTheme.headline6,
               ),
               TextField(
@@ -177,12 +177,11 @@ class _dataState extends State<AddTree> {
             child: ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                primary: Color.fromARGB(
-                    255, 112, 112, 205), // Change the button's background color
+                primary: Colors.blue, // Change the button's background color
                 fixedSize: Size(500, 50), // Increase the button's size
               ),
               child: Text(
-                'Add Tree',
+                'Add Plant',
                 style: TextStyle(fontSize: 20, color: Colors.black),
               ),
             ),

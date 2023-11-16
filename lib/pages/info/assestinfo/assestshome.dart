@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
+//import 'package:ecohex/pages/info/assestinfo/user_assets.dart';
+
 import 'package:eco/auth/signin.dart';
-import 'package:eco/pages/assestslandingpage.dart';
-import 'package:eco/pages/info/assestinfo/user_assets.dart';
-import 'package:eco/pages/info/user_info.dart';
+import 'package:eco/pages/Plants_LandingPage.dart';
+import 'package:eco/pages/User_LandingPage.dart';
+
 import 'package:flutter/material.dart';
 
 class AssestsHomepage extends StatefulWidget {
@@ -77,16 +79,14 @@ class _HomepageState extends State<AssestsHomepage> {
                     height: MediaQuery.of(context).size.height * 0.2,
                     width: MediaQuery.of(context).size.height * 0.5,
                     decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        image: DecorationImage(
-                          image: AssetImage('assets/crops_image.jpg'),
-                          fit: BoxFit.cover,
-                          // height: MediaQuery.of(context).size.height * 0.2, // Adjust the height as needed
-                          // width: MediaQuery.of(context).size.height * 0.5,
-                        ),
-                        // Image.asset('assets/EcoHex_Logo-removebg-preview.png'),
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(15)),
+                    child: Center(
+                        child: const Text(
+                      'Trees',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    )),
                   ),
                 ),
               ),
@@ -95,27 +95,27 @@ class _HomepageState extends State<AssestsHomepage> {
               padding: const EdgeInsets.all(10.0),
               child: GestureDetector(
                 onTap: () {
-                  // Navigator.of(context).push(
-                  //   PageRouteBuilder(
-                  //     pageBuilder: (context, animation, secondaryAnimation) {
-                  //       return UserAssets();
-                  //     },
-                  //     transitionsBuilder:
-                  //         (context, animation, secondaryAnimation, child) {
-                  //       const begin = Offset(0.0, 1.0);
-                  //       const end = Offset.zero;
-                  //       const curve = Curves.easeInOut;
-                  //       var tween = Tween(begin: begin, end: end)
-                  //           .chain(CurveTween(curve: curve));
-                  //       var offsetAnimation = animation.drive(tween);
+                  Navigator.of(context).push(
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) {
+                        return PlantsLandingPage();
+                      },
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        const begin = Offset(0.0, 1.0);
+                        const end = Offset.zero;
+                        const curve = Curves.easeInOut;
+                        var tween = Tween(begin: begin, end: end)
+                            .chain(CurveTween(curve: curve));
+                        var offsetAnimation = animation.drive(tween);
 
-                  //       return SlideTransition(
-                  //         position: offsetAnimation,
-                  //         child: child,
-                  //       );
-                  //     },
-                  //   ),
-                  // );
+                        return SlideTransition(
+                          position: offsetAnimation,
+                          child: child,
+                        );
+                      },
+                    ),
+                  );
                 },
                 child: Hero(
                   tag: 'userAssets',
@@ -123,14 +123,14 @@ class _HomepageState extends State<AssestsHomepage> {
                     height: MediaQuery.of(context).size.height * 0.2,
                     width: MediaQuery.of(context).size.height * 0.5,
                     decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('assets/Trees_image.png'),
-                          fit: BoxFit.cover,
-                          // height: MediaQuery.of(context).size.height * 0.2, // Adjust the height as needed
-                          // width: MediaQuery.of(context).size.height * 0.5,
-                        ),
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(15)),
+                    child: Center(
+                        child: const Text(
+                      'plants',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    )),
                   ),
                 ),
               ),

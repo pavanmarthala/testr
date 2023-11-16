@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:eco/auth/signin.dart';
-import 'package:eco/pages/info/addtree.dart';
+import 'package:eco/pages/info/Add_Tree.dart';
+import 'package:eco/pages/info/assestinfo/Tree_Info.dart';
 import 'package:eco/pages/info/assestinfo/assestshome.dart';
-import 'package:eco/pages/info/assestinfo/user_assets.dart';
-import 'package:eco/pages/info/user_info.dart';
+
 import 'package:flutter/material.dart';
 
 class AssetsLandingPage extends StatefulWidget {
@@ -77,7 +77,7 @@ class _HomepageState extends State<AssetsLandingPage> {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => UserAssets(),
+                        builder: (context) => TreeInfo(),
                       ),
                     );
                   },

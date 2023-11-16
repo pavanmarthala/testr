@@ -1,11 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:eco/auth/signin.dart';
-import 'package:eco/pages/drawer.dart';
-import 'package:eco/pages/info/assestinfo/assestshome.dart';
-import 'package:eco/pages/info/assestinfo/user_assets.dart';
-import 'package:eco/pages/info/user_info.dart';
-import 'package:eco/pages/userlandingpage.dart';
+import 'package:eco/pages/Drawer.dart';
+import 'package:eco/pages/Plants_LandingPage.dart';
+import 'package:eco/pages/Tree_LandingPage.dart';
+import 'package:eco/pages/info/assestinfo/User_Info.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 
@@ -17,6 +17,22 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  int index = 0;
+  List<Widget> screens = [];
+
+  @override
+  void initState() {
+    super.initState();
+    screens = [
+      UserInfo(),
+      TreeLandinpPage(),
+      PlantsLandingPage(),
+    ];
+  }
+
+  int currentIndex = 0;
+  PageController pageController = PageController(initialPage: 0);
+
   final _advancedDrawerController = AdvancedDrawerController();
 
   @override
@@ -46,10 +62,18 @@ class _HomepageState extends State<Homepage> {
       ),
       drawer: Mydrawer(),
       child: Scaffold(
-        backgroundColor: const Color(0xffcbcbcb),
         appBar: AppBar(
-          backgroundColor:
-              Color.fromARGB(255, 112, 112, 205), // Set the app bar color
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [Colors.teal, Colors.blue],
+              ),
+            ),
+          ),
           title: const Text(
             'Home page',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -71,112 +95,48 @@ class _HomepageState extends State<Homepage> {
           ),
           actions: [
             IconButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => SingIN(),
-                    ),
-                  );
-                },
-                icon: Icon(
-                  Icons.exit_to_app,
-                  size: 30,
-                  color: Colors.black,
-                ))
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => SingIN(),
+                  ),
+                );
+              },
+              icon: Icon(
+                Icons.exit_to_app,
+                size: 30,
+                color: Colors.black,
+              ),
+            )
           ],
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation, secondaryAnimation) {
-                          return UserLandingPage();
-                        },
-                        transitionsBuilder:
-                            (context, animation, secondaryAnimation, child) {
-                          const begin = Offset(0.0, 1.0);
-                          const end = Offset.zero;
-                          const curve = Curves.easeInBack;
-                          var tween = Tween(begin: begin, end: end)
-                              .chain(CurveTween(curve: curve));
-                          var offsetAnimation = animation.drive(tween);
-
-                          return SlideTransition(
-                            position: offsetAnimation,
-                            child: child,
-                          );
-                        },
-                      ),
-                    );
-                  },
-                  child: Hero(
-                    tag: 'userInfo',
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * 0.2,
-                      width: MediaQuery.of(context).size.height * 0.5,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(15)),
-                      child: Center(
-                          child: const Text(
-                        'View User Info',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      )),
-                    ),
-                  ),
-                ),
+        backgroundColor: Colors.teal,
+        body: screens[index],
+        bottomNavigationBar: NavigationBarTheme(
+          data: NavigationBarThemeData(
+            backgroundColor: Colors.transparent,
+            labelTextStyle: MaterialStateProperty.all(
+              TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+            ),
+          ),
+          child: NavigationBar(
+            height: 60,
+            selectedIndex: index,
+            onDestinationSelected: (index) =>
+                setState(() => this.index = index),
+            destinations: [
+              NavigationDestination(
+                icon: Icon(Icons.person),
+                label: 'User Info',
               ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation, secondaryAnimation) {
-                          return AssestsHomepage();
-                        },
-                        transitionsBuilder:
-                            (context, animation, secondaryAnimation, child) {
-                          const begin = Offset(0.0, 1.0);
-                          const end = Offset.zero;
-                          const curve = Curves.easeInOut;
-                          var tween = Tween(begin: begin, end: end)
-                              .chain(CurveTween(curve: curve));
-                          var offsetAnimation = animation.drive(tween);
-
-                          return SlideTransition(
-                            position: offsetAnimation,
-                            child: child,
-                          );
-                        },
-                      ),
-                    );
-                  },
-                  child: Hero(
-                    tag: 'userAssets',
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * 0.2,
-                      width: MediaQuery.of(context).size.height * 0.5,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(15)),
-                      child: Center(
-                          child: const Text(
-                        'View User Assets',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      )),
-                    ),
-                  ),
-                ),
-              )
+              NavigationDestination(
+                icon: Icon(Icons.park),
+                label: 'Tree Info',
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.eco),
+                label: 'Plant Info',
+              ),
             ],
           ),
         ),

@@ -1,7 +1,5 @@
 import 'package:eco/auth/signin.dart';
-import 'package:eco/pages/homepage.dart';
-import 'package:eco/pages/info/addtree.dart';
-import 'package:eco/pages/info/assestinfo/assestshome.dart';
+
 import 'package:flutter/material.dart';
 
 void main() {
