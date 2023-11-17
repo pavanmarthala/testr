@@ -99,7 +99,7 @@ class _AddTreeState extends State<AddTree> with SingleTickerProviderStateMixin {
                       final responseJson = jsonDecode(response.body);
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => TreeLandinpPage(),
+                          builder: (context) => TreeLandinpPage(""),
                         ),
                       );
                       // Handle the response data as required
@@ -155,7 +155,7 @@ class _AddTreeState extends State<AddTree> with SingleTickerProviderStateMixin {
                 decoration: InputDecoration(
                   contentPadding:
                       EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-                  hintText: 'enter_Trees_Age',
+                  hintText: 'Enter_Trees_Age',
                 ),
               ),
               SizedBox(
