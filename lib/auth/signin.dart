@@ -70,17 +70,20 @@ class _SingINState extends State<SingIN> {
 
         if (authorities.contains('superAdmin') ||
             (authorities.contains('admin'))) {
+          print('admin');
           // Navigate to the admin panel (Adminlandingpage)
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => UserHomePage(),
+              builder: (context) => Homepage(''),
             ),
           );
         } else {
+          print('user');
+
           // Navigate to the user panel (Landingpage)
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => Homepage(""),
+              builder: (context) => UserHomePage(),
             ),
           );
         }
