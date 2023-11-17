@@ -1,5 +1,4 @@
 import 'package:eco/auth/signin.dart';
-import 'package:eco/pages/SplashScreen.dart';
 
 import 'package:flutter/material.dart';
 
