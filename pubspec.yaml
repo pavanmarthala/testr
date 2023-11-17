@@ -60,6 +60,8 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   image_picker: ^1.0.4
   permission_handler: ^11.0.1
+  material_dialogs: ^1.1.4
+  animated_card: ^2.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

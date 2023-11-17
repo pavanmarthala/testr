@@ -1,143 +1,160 @@
-// // ignore_for_file: prefer_const_constructors
+import 'package:eco/pages/Drawer.dart';
+import 'package:flutter/material.dart';
 
-// //import 'package:ecohex/pages/info/assestinfo/user_assets.dart';
+class Myprofile extends StatelessWidget {
+  Widget listTile({required IconData icon, required String title}) {
+    return Column(
+      children: [
+        const Divider(
+          height: 1,
+        ),
+        ListTile(
+          leading: Icon(icon),
+          title: Text(title),
+          trailing: const Icon(Icons.arrow_forward_ios),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+        )
+      ],
+    );
+  }
 
-// import 'package:eco/auth/signin.dart';
-// import 'package:eco/pages/Plants_LandingPage.dart';
-// import 'package:eco/pages/User_LandingPage.dart';
-
-// import 'package:flutter/material.dart';
-
-// class AssestsHomepage extends StatefulWidget {
-//   const AssestsHomepage({Key? key}) : super(key: key);
-
-//   @override
-//   _HomepageState createState() => _HomepageState();
-// }
-
-// class _HomepageState extends State<AssestsHomepage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: const Color(0xffcbcbcb),
-//       appBar: AppBar(
-//         backgroundColor: Color.fromARGB(255, 112, 112, 205),
-//         title: const Text(
-//           'Home page',
-//           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-//         ),
-//         actions: [
-//           IconButton(
-//             onPressed: () {
-//               Navigator.of(context).push(
-//                 MaterialPageRoute(
-//                   builder: (context) => SingIN(),
-//                 ),
-//               );
-//             },
-//             icon: Icon(
-//               Icons.exit_to_app,
-//               size: 30,
-//               color: Colors.black,
-//             ),
-//           )
-//         ],
-//       ),
-//       body: Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: <Widget>[
-//             Padding(
-//               padding: const EdgeInsets.all(10),
-//               child: GestureDetector(
-//                 onTap: () {
-//                   Navigator.of(context).push(
-//                     PageRouteBuilder(
-//                       pageBuilder: (context, animation, secondaryAnimation) {
-//                         return AssetsLandingPage();
-//                       },
-//                       transitionsBuilder:
-//                           (context, animation, secondaryAnimation, child) {
-//                         const begin = Offset(0.0, 1.0);
-//                         const end = Offset.zero;
-//                         const curve = Curves.easeInBack;
-//                         var tween = Tween(begin: begin, end: end)
-//                             .chain(CurveTween(curve: curve));
-//                         var offsetAnimation = animation.drive(tween);
-
-//                         return SlideTransition(
-//                           position: offsetAnimation,
-//                           child: child,
-//                         );
-//                       },
-//                     ),
-//                   );
-//                 },
-//                 child: Hero(
-//                   tag: 'userInfo',
-//                   child: Container(
-//                     height: MediaQuery.of(context).size.height * 0.2,
-//                     width: MediaQuery.of(context).size.height * 0.5,
-//                     decoration: BoxDecoration(
-//                         color: Colors.white,
-//                         borderRadius: BorderRadius.circular(15)),
-//                     child: Center(
-//                         child: const Text(
-//                       'Trees',
-//                       style:
-//                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-//                     )),
-//                   ),
-//                 ),
-//               ),
-//             ),
-//             Padding(
-//               padding: const EdgeInsets.all(10.0),
-//               child: GestureDetector(
-//                 onTap: () {
-//                   Navigator.of(context).push(
-//                     PageRouteBuilder(
-//                       pageBuilder: (context, animation, secondaryAnimation) {
-//                         return PlantsLandingPage();
-//                       },
-//                       transitionsBuilder:
-//                           (context, animation, secondaryAnimation, child) {
-//                         const begin = Offset(0.0, 1.0);
-//                         const end = Offset.zero;
-//                         const curve = Curves.easeInOut;
-//                         var tween = Tween(begin: begin, end: end)
-//                             .chain(CurveTween(curve: curve));
-//                         var offsetAnimation = animation.drive(tween);
-
-//                         return SlideTransition(
-//                           position: offsetAnimation,
-//                           child: child,
-//                         );
-//                       },
-//                     ),
-//                   );
-//                 },
-//                 child: Hero(
-//                   tag: 'userAssets',
-//                   child: Container(
-//                     height: MediaQuery.of(context).size.height * 0.2,
-//                     width: MediaQuery.of(context).size.height * 0.5,
-//                     decoration: BoxDecoration(
-//                         color: Colors.white,
-//                         borderRadius: BorderRadius.circular(15)),
-//                     child: Center(
-//                         child: const Text(
-//                       'plants',
-//                       style:
-//                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-//                     )),
-//                   ),
-//                 ),
-//               ),
-//             )
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.lightBlue,
+      appBar: AppBar(
+        elevation: 0.0,
+        title: const Text(
+          "My Profile",
+          style: TextStyle(fontSize: 18, color: Colors.black),
+        ),
+      ),
+      drawer: Mydrawer(),
+      body: Stack(
+        children: [
+          Column(
+            children: [
+              Container(
+                height: 120,
+                color: Colors.lightBlue,
+              ),
+              const SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+              ),
+              Expanded(
+                child: Container(
+                  height: 650,
+                  width: double.infinity,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                  decoration: const BoxDecoration(
+                      color: Color(0xffcbcbcb),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30),
+                      )),
+                  child: ListView(
+                    children: [
+                      const SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+                            width: 250,
+                            height: 80,
+                            padding: const EdgeInsets.only(left: 20),
+                            child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "pavan",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text("pavanmarthala36@gmail.com")
+                                  ],
+                                ),
+                                CircleAvatar(
+                                  radius: 15,
+                                  backgroundColor: Colors.lightBlue,
+                                  child: CircleAvatar(
+                                    radius: 12,
+                                    child: Icon(Icons.edit,
+                                        color: Colors.lightBlue),
+                                    backgroundColor: Color(0xffcbcbcb),
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.shop_outlined),
+                        title: const Text("My Orders"),
+                        onTap: () {},
+                        trailing: const Icon(Icons.arrow_forward_ios),
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.location_on_outlined),
+                        title: const Text("My Address"),
+                        onTap: () {},
+                        trailing: const Icon(Icons.arrow_forward_ios),
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.file_copy_outlined),
+                        title: const Text("Terms & conditions"),
+                        onTap: () {},
+                        trailing: const Icon(Icons.arrow_forward_ios),
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.person_outlined),
+                        title: const Text("Refer A friend"),
+                        onTap: () {},
+                        trailing: const Icon(Icons.arrow_forward_ios),
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.policy_outlined),
+                        title: const Text("Privacy Policy"),
+                        onTap: () {},
+                        trailing: const Icon(Icons.arrow_forward_ios),
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.format_quote_outlined),
+                        title: const Text("FAQs"),
+                        onTap: () {},
+                        trailing: const Icon(Icons.arrow_forward_ios),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+          const Padding(
+            padding: EdgeInsets.only(top: 60, left: 40),
+            child: CircleAvatar(
+              radius: 50,
+              backgroundColor: Colors.lightBlue,
+              child: CircleAvatar(
+                backgroundImage: AssetImage("assets/profile.webp"),
+                radius: 45,
+                backgroundColor: Color(0xffcbcbcb),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}

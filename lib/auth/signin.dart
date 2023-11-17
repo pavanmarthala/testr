@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:eco/auth/forgot.dart';
 import 'package:eco/auth/register.dart';
+import 'package:eco/pages/Admin_HomePage.dart';
 import 'package:eco/pages/User_HomePage.dart';
 import 'package:eco/pages/homepage.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
@@ -69,21 +70,18 @@ class _SingINState extends State<SingIN> {
         List<dynamic> authorities = decodedToken['authorities'];
 
         if (authorities.contains('superAdmin') ||
-            (authorities.contains('admin'))) {
-          print('admin');
+            (authorities.contains('Admin'))) {
           // Navigate to the admin panel (Adminlandingpage)
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => Homepage(''),
+              builder: (context) => AdminHomePage(),
             ),
           );
         } else {
-          print('user');
-
           // Navigate to the user panel (Landingpage)
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => UserHomePage(),
+              builder: (context) => UserHomePage("9700930088"),
             ),
           );
         }
