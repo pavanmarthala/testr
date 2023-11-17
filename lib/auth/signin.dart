@@ -80,7 +80,7 @@ class _SingINState extends State<SingIN> {
           // Navigate to the user panel (Landingpage)
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => UserHomePage(),
+              builder: (context) => Homepage(""),
             ),
           );
         }

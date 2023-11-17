@@ -8,6 +8,7 @@ import 'package:eco/pages/info/assestinfo/User_Info.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Homepage extends StatefulWidget {
@@ -47,6 +48,30 @@ class _HomepageState extends State<Homepage> {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => SingIN()),
     );
+  }
+
+  Map<String, dynamic> decodeJwt(String token) {
+    try {
+      return JwtDecoder.decode(token);
+    } catch (e) {
+      print('Error decoding JWT: $e');
+      return {};
+    }
+  }
+
+  Future<bool> checkUserRole() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? jwtToken = prefs.getString('jwt_token');
+
+    if (jwtToken != null) {
+      Map<String, dynamic> decodedToken = decodeJwt(jwtToken);
+      List<dynamic> authorities = decodedToken['authorities'];
+
+      return authorities.contains('admin') ||
+          authorities.contains('superAdmin');
+    }
+
+    return false;
   }
 
   @override
