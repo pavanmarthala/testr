@@ -38,101 +38,91 @@ class _AddTreeState extends State<AddTree> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomAppBar(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () async {
-                  String AgeOfTree = _AgeOfTree.text;
-                  String NumOFTree = _NumOfTree.text;
-                  String KathaNUmber = _KathaNumber.text;
-                  String SurveyNumber = _SurveyNumber.text;
-                  String LandExtent = _LandExtent.text;
-                  String LandType = _LandType.text;
-                  String Height = _Height.text;
-                  String SteamDiameter = _SteamDiameter.text;
+      // backgroundColor: Colors.teal,
+      bottomNavigationBar: BottomNavigationBarTheme(
+        data: BottomNavigationBarThemeData(),
+        child: MaterialButton(
+          color: Colors.green,
+          padding: EdgeInsets.all(10),
+          onPressed: () async {
+            String AgeOfTree = _AgeOfTree.text;
+            String NumOFTree = _NumOfTree.text;
+            String KathaNUmber = _KathaNumber.text;
+            String SurveyNumber = _SurveyNumber.text;
+            String LandExtent = _LandExtent.text;
+            String LandType = _LandType.text;
+            String Height = _Height.text;
+            String SteamDiameter = _SteamDiameter.text;
 
-                  SharedPreferences prefs =
-                      await SharedPreferences.getInstance();
-                  String? jwtToken = prefs.getString('jwt_token');
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            String? jwtToken = prefs.getString('jwt_token');
 
-                  if (jwtToken == null) {
-                    // Handle the case where the token is missing
-                    return;
-                  }
+            if (jwtToken == null) {
+              // Handle the case where the token is missing
+              return;
+            }
 
-                  // Prepare the request body to match the API's expected structure
-                  Map<String, dynamic> requestBody = {
-                    "ageOfTheTree": AgeOfTree,
-                    "numberOfTrees": NumOFTree,
-                    "kathaNumber": KathaNUmber,
-                    "surveyNumber": SurveyNumber,
-                    "landExtent": LandExtent,
-                    "landType": LandType,
-                    "height": Height,
-                    "steamDiameter": SteamDiameter
-                  };
+            // Prepare the request body to match the API's expected structure
+            Map<String, dynamic> requestBody = {
+              "ageOfTheTree": AgeOfTree,
+              "numberOfTrees": NumOFTree,
+              "kathaNumber": KathaNUmber,
+              "surveyNumber": SurveyNumber,
+              "landExtent": LandExtent,
+              "landType": LandType,
+              "height": Height,
+              "steamDiameter": SteamDiameter
+            };
 
-                  // Prepare the headers with the JWT token
-                  Map<String, String> headers = {
-                    'Authorization': 'Bearer $jwtToken',
-                    'Content-Type': 'application/json',
-                  };
+            // Prepare the headers with the JWT token
+            Map<String, String> headers = {
+              'Authorization': 'Bearer $jwtToken',
+              'Content-Type': 'application/json',
+            };
 
-                  // Make the API POST request with headers and request body
-                  Uri apiUrl = Uri.parse('https://api.ecohex.in/tree/add');
-                  http
-                      .post(
-                    apiUrl,
-                    headers: headers,
-                    body: jsonEncode(requestBody),
-                  )
-                      .then((response) {
-                    if (response.statusCode == 200) {
-                      // Request was successful
-                      print('API request successful');
+            // Make the API POST request with headers and request body
+            Uri apiUrl = Uri.parse('https://api.ecohex.in/tree/add');
+            http
+                .post(
+              apiUrl,
+              headers: headers,
+              body: jsonEncode(requestBody),
+            )
+                .then((response) {
+              if (response.statusCode == 200) {
+                // Request was successful
+                print('API request successful');
 
-                      // Parse the response if needed
-                      final responseJson = jsonDecode(response.body);
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => TreeLandinpPage(""),
-                        ),
-                      );
-                      // Handle the response data as required
-                    } else {
-                      // Request failed
-                      print(
-                          'API request failed with status code: ${response.statusCode}');
-                      print('Response body: ${response.body}');
-                      // You can handle the error here
-                    }
-                  }).catchError((error) {
-                    // Request failed
-                    print('API request failed with error: $error');
-                    // You can handle the error here
-                  });
-                },
-                style: ElevatedButton.styleFrom(
-                    primary: Colors.blue, fixedSize: Size(250, 70)
-                    // padding: EdgeInsets.symmetric(
-                    //     vertical: 10, horizontal: 20), // Adjust padding for size
-                    ),
-                child: Text('Add Tree',
-                    style: TextStyle(fontSize: 24, color: Colors.white)),
-              ),
-            ],
-          ),
+                // Parse the response if needed
+                final responseJson = jsonDecode(response.body);
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => TreeLandingPage(""),
+                  ),
+                );
+                // Handle the response data as required
+              } else {
+                // Request failed
+                print(
+                    'API request failed with status code: ${response.statusCode}');
+                print('Response body: ${response.body}');
+                // You can handle the error here
+              }
+            }).catchError((error) {
+              // Request failed
+              print('API request failed with error: $error');
+              // You can handle the error here
+            });
+          },
+          child: Text('Add Tree',
+              style: TextStyle(fontSize: 24, color: Colors.white)),
         ),
       ),
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
-        backgroundColor: Colors.white,
+        // backgroundColor: Colors.teal,
         title: Text(
-          "Add_Tree",
+          "Add Tree",
           style: TextStyle(
               fontWeight: FontWeight.bold, color: Colors.black, fontSize: 25),
         ),
@@ -155,7 +145,7 @@ class _AddTreeState extends State<AddTree> with SingleTickerProviderStateMixin {
                 decoration: InputDecoration(
                   contentPadding:
                       EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-                  hintText: 'Enter_Trees_Age',
+                  hintText: 'Enter Trees Age',
                 ),
               ),
               SizedBox(
@@ -170,7 +160,7 @@ class _AddTreeState extends State<AddTree> with SingleTickerProviderStateMixin {
                 decoration: InputDecoration(
                   contentPadding:
                       EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-                  hintText: 'Enter_NumberOf_Trees',
+                  hintText: 'Enter Number Of Trees',
                 ),
               ),
               SizedBox(

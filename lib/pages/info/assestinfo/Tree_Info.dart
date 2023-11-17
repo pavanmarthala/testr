@@ -1,14 +1,13 @@
-// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, prefer_const_literals_to_create_immutables, depend_on_referenced_packages, unused_element
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, prefer_const_literals_to_create_immutables, depend_on_referenced_packages, unused_element, sort_child_properties_last
 
 import 'dart:convert';
 import 'dart:io';
+import 'package:http_parser/http_parser.dart' show MediaType;
 
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 
 class TreeInfo extends StatefulWidget {
@@ -118,6 +117,43 @@ class _TreeInfoState extends State<TreeInfo> {
     }
   }
 
+  // Function to upload image to the server
+  Future<void> _uploadImage(File image) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? jwtToken = prefs.getString('jwt_token');
+
+    try {
+      final request = http.MultipartRequest(
+        'POST',
+        Uri.parse('https://api.ecohex.in/image/upload'),
+      );
+
+      request.headers["Authorization"] = "Bearer $jwtToken";
+      request.fields["treeId"] = widget.treeId;
+      request.files.add(
+        await http.MultipartFile.fromPath(
+          'file',
+          image.path,
+          contentType:
+              MediaType('image', 'jpeg'), // Adjust the content type as needed
+        ),
+      );
+      final response = await request.send();
+
+      if (response.statusCode == 200) {
+        // Image uploaded successfully
+        print('Image uploaded successfully');
+      } else {
+        print(
+            'Image upload failed: ${response.statusCode} - ${response.reasonPhrase}');
+        // Handle error
+      }
+    } catch (e) {
+      print('Error uploading image: $e');
+      // Handle error
+    }
+  }
+
   Future<void> _showImageSourceDialog() async {
     return Dialogs.bottomMaterialDialog(
         msg: 'Select Image Source',
@@ -125,9 +161,6 @@ class _TreeInfoState extends State<TreeInfo> {
         color: Colors.white,
         context: context,
         actions: [
-          // _selectedImage != null
-          //     ? Image.file(_selectedImage!)
-          //     :
           Row(
             children: [
               SizedBox(
@@ -179,17 +212,101 @@ class _TreeInfoState extends State<TreeInfo> {
             ],
           )
         ]);
-    // showDialog<void>(
-    //   context: context,
-    //   builder: (BuildContext context) {
-    //     return AlertDialog(
-    //       title: Text('Select Image Source'),
-    //       actions: <Widget>[
+  }
 
-    //       ],
-    //     );
-    //   },
-    // );
+  Future<void> _showImagePreviewDialog(File imageFile) async {
+    Dialogs.materialDialog(
+        msg: 'Image Preview',
+        title: "Upload Tree Image",
+        color: Colors.white,
+        context: context,
+        actions: [
+          Column(
+            children: [
+              Container(
+                  height: MediaQuery.of(context).size.height * 0.3,
+                  child: Image.file(_selectedImage!)),
+              Padding(padding: EdgeInsets.only(bottom: 10)),
+              Row(
+                children: [
+                  Column(
+                    children: <Widget>[
+                      MaterialButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(); // Close the dialog
+                          setState(() {
+                            _selectedImage = null; // Clear the selected image
+                          });
+                        },
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        color: Colors.red,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.clear,
+                              color: Colors.white,
+                              size: 18,
+                            ),
+                            SizedBox(
+                              width: 4,
+                            ),
+                            Text(
+                              'Clear',
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Column(
+                    children: <Widget>[
+                      OutlinedButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(); // Close the dialog
+                            _uploadImage(imageFile);
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.upload,
+                                color: Colors.green,
+                                size: 18,
+                              ),
+                              SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                'upload',
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  color: Colors.green,
+                                ),
+                              ),
+                            ],
+                          ),
+                          style: OutlinedButton.styleFrom(
+                              side: BorderSide(color: Colors.green),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)))),
+                    ],
+                  )
+                ],
+              ),
+            ],
+          )
+        ]);
   }
 
   Future _pickImagefromgallary() async {
@@ -197,6 +314,7 @@ class _TreeInfoState extends State<TreeInfo> {
     if (picked == null) return;
     setState(() {
       _selectedImage = File(picked.path);
+      _showImagePreviewDialog(_selectedImage!);
     });
   }
 
@@ -205,6 +323,7 @@ class _TreeInfoState extends State<TreeInfo> {
     if (picked == null) return;
     setState(() {
       _selectedImage = File(picked.path);
+      _showImagePreviewDialog(_selectedImage!);
     });
   }
 
@@ -212,24 +331,26 @@ class _TreeInfoState extends State<TreeInfo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.teal,
+
         iconTheme: IconThemeData(
-          color: Colors.white,
-        ),
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [Colors.teal, Colors.blue],
+            // color: Colors.white,
             ),
-          ),
-        ),
+        // flexibleSpace: Container(
+        //   decoration: BoxDecoration(color: Colors.transparent
+        //       // gradient: LinearGradient(
+        //       //   begin: Alignment.topLeft,
+        //       //   end: Alignment.bottomRight,
+        //       //   colors: [Colors.teal, Colors.blue],
+        //       // ),
+        //       ),
+        // ),
         title: const Text(
           'Tree Info',
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            color: Colors.white,
+            // color: Colors.white,
           ),
         ),
       ),

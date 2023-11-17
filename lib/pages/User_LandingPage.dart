@@ -1,245 +1,171 @@
-// // ignore_for_file: prefer_const_constructors
+import 'dart:developer';
 
-// import 'package:eco/auth/signin.dart';
-// import 'package:eco/pages/info/Add_Tree.dart';
-// import 'package:eco/pages/info/assestinfo/Tree_Info.dart';
-// import 'package:eco/pages/info/assestinfo/assestshome.dart';
+import 'package:floating_bottom_bar/animated_bottom_navigation_bar.dart';
+import 'package:flutter/material.dart';
 
-// import 'package:flutter/material.dart';
+void main() {
+  runApp(const MyApp());
+}
 
-// class AssetsLandingPage extends StatefulWidget {
-//   const AssetsLandingPage({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
-//   @override
-//   _HomepageState createState() => _HomepageState();
-// }
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'example.Strings.appName,',
+      theme: ThemeData(),
+      home: const BottomNavigatorExample(title: 'example.Strings.appName'),
+    );
+  }
+}
 
-// class _HomepageState extends State<AssetsLandingPage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         backgroundColor: const Color(0xffcbcbcb),
-//         appBar: AppBar(
-//           backgroundColor: Color.fromARGB(255, 112, 112, 205),
-//           title: const Text(
-//             'View User Assets',
-//             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-//           ),
-//           actions: [
-//             IconButton(
-//               onPressed: () {
-//                 Navigator.of(context).push(
-//                   MaterialPageRoute(
-//                     builder: (context) => SingIN(),
-//                   ),
-//                 );
-//               },
-//               icon: Icon(
-//                 Icons.exit_to_app,
-//                 size: 30,
-//                 color: Colors.black,
-//               ),
-//             )
-//           ],
-//         ),
-//         body: Center(
-//           child: Column(
-//             children: [
-//               Padding(
-//                 padding: const EdgeInsets.only(top: 50),
-//                 // child: Image.asset("assets/EcoHex_Logo-removebg-preview.png"),
-//               ),
-//               Padding(
-//                 padding: const EdgeInsets.all(8.0),
-//                 child: Container(
-//                   width: MediaQuery.of(context).size.height * 0.5,
-//                   height: 50,
-//                   child: TextField(
-//                     onChanged: (value) {},
-//                     decoration: InputDecoration(
-//                       contentPadding:
-//                           EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-//                       hintText: 'Search for Users',
-//                       border: OutlineInputBorder(
-//                         borderRadius: BorderRadius.circular(15),
-//                         borderSide: BorderSide(),
-//                       ),
-//                       fillColor: Colors.white54,
-//                       filled: true,
-//                       suffixIcon: const Icon(Icons.search),
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//               Padding(
-//                 padding: const EdgeInsets.only(left: 10, top: 20),
-//                 child: GestureDetector(
-//                   onTap: () {
-//                     Navigator.of(context).push(
-//                       MaterialPageRoute(
-//                         builder: (context) => TreeInfo(),
-//                       ),
-//                     );
-//                   },
-//                   child: Container(
-//                     width: MediaQuery.of(context).size.height * 0.5,
-//                     height: 140,
-//                     decoration: BoxDecoration(
-//                         color: Colors.white,
-//                         borderRadius: BorderRadius.circular(15),
-//                         border: Border.all()),
-//                     child: Column(
-//                       children: [
-//                         Padding(
-//                           padding: const EdgeInsets.all(5.0),
-//                           child: Row(
-//                             children: [
-//                               (const Text(
-//                                 'ID',
-//                                 // style: TextStyle(color: Colors.white),
-//                               )),
-//                               SizedBox(
-//                                 width: MediaQuery.of(context).size.height * 0.1,
-//                               ),
-//                               (const Text(
-//                                 ':  8897784992',
-//                                 // style: TextStyle(color: Colors.white),
-//                               )),
-//                             ],
-//                           ),
-//                         ),
-//                         Padding(
-//                           padding: const EdgeInsets.only(
-//                               left: 5, right: 100, top: 5, bottom: 5),
-//                           child: Row(
-//                             children: [
-//                               (const Text(
-//                                 'Name',
-//                                 // style: TextStyle(color: Colors.white),
-//                               )),
-//                               SizedBox(
-//                                 width: 53,
-//                               ),
-//                               (const Text(
-//                                 ':  sai ',
-//                                 // style: TextStyle(color: Colors.white),
-//                               )),
-//                             ],
-//                           ),
-//                         ),
-//                         Padding(
-//                           padding: const EdgeInsets.only(left: 5, right: 50),
-//                           child: Row(
-//                             children: [
-//                               (const Text(
-//                                 'KathaNumber',
-//                                 // style: TextStyle(color: Colors.white),
-//                               )),
-//                               SizedBox(
-//                                 width: MediaQuery.of(context).size.height * 0.1,
-//                               ),
-//                               (const Text(
-//                                 ': 4992',
-//                                 // style: TextStyle(color: Colors.white),
-//                               )),
-//                             ],
-//                           ),
-//                         ),
-//                         Padding(
-//                           padding: const EdgeInsets.all(5.0),
-//                           child: Row(
-//                             children: [
-//                               (const Text(
-//                                 'Role',
-//                                 // style: TextStyle(color: Colors.white),
-//                               )),
-//                               SizedBox(
-//                                 width: 63,
-//                               ),
-//                               (const Text(
-//                                 ':  Admin',
-//                                 // style: TextStyle(color: Colors.white),
-//                               )),
-//                             ],
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//               Spacer(),
-//             ],
-//           ),
-//         ),
-//         bottomNavigationBar: SafeArea(
-//           child: Container(
-//             padding: const EdgeInsets.only(left: 160, top: 5, bottom: 5),
-//             decoration: const BoxDecoration(
-//                 //color:  Color.fromARGB(255, 112, 112, 205),
-//                 borderRadius: BorderRadius.all(Radius.circular(24))),
-//             child: SizedBox(
-//               child: SingleChildScrollView(
-//                 scrollDirection: Axis.horizontal,
-//                 child: Row(
-//                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                   children: [
-//                     Container(
-//                       width: 85,
-//                       decoration: BoxDecoration(
-//                         color: Color.fromARGB(255, 112, 112, 205),
+class BottomNavigatorExample extends StatefulWidget {
+  const BottomNavigatorExample({Key? key, required this.title})
+      : super(key: key);
 
-//                         borderRadius:
-//                             BorderRadius.circular(10.0), // Rounded border
-//                       ),
-//                       child: TextButton(
-//                         onPressed: () {
-//                           Navigator.of(context).push(
-//                             MaterialPageRoute(
-//                               builder: (context) => const AssestsHomepage(),
-//                             ),
-//                           );
+  final String title;
 
-//                           // Go back to Home Screen
-//                         },
-//                         child: Text(
-//                           'Home',
-//                           style: TextStyle(color: Colors.white),
-//                         ),
-//                       ),
-//                     ),
-//                     Padding(
-//                       padding: const EdgeInsets.only(left: 8),
-//                       child: Container(
-//                         width: 85,
-//                         decoration: BoxDecoration(
-//                           color: Color.fromARGB(255, 112, 112, 205),
+  @override
+  State<BottomNavigatorExample> createState() => _BottomNavigatorExampleState();
+}
 
-//                           borderRadius:
-//                               BorderRadius.circular(10.0), // Rounded border
-//                         ),
-//                         child: TextButton(
-//                           onPressed: () {
-//                             Navigator.of(context).push(
-//                               MaterialPageRoute(
-//                                 builder: (context) => const AddTree(),
-//                               ),
-//                             );
+class _BottomNavigatorExampleState extends State<BottomNavigatorExample> {
+  bool circleButtonToggle = false;
+  List<Color> listOfColor = [
+    const Color(0xFFF2B5BA),
+    Colors.orange,
+    Colors.amber,
+    Colors.deepOrangeAccent
+  ];
+  int index = 2;
 
-//                             // Go back to Home Screen
-//                           },
-//                           child: Text(
-//                             'Add Tree',
-//                             style: TextStyle(color: Colors.white),
-//                           ),
-//                         ),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ),
-//           ),
-//         ));
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Stack(
+        children: [
+          Scaffold(
+            appBar: AppBar(
+              elevation: 3,
+              // backgroundColor: example.AppColors.cherryRed,
+              title: Text(widget.title),
+            ),
+            backgroundColor: listOfColor[index],
+            floatingActionButton: const SizedBox(
+              height: 100,
+              width: 100,
+            ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
+            bottomNavigationBar: AnimatedBottomNavigationBar(
+              barColor: Colors.white,
+              controller: FloatingBottomBarController(initialIndex: 1),
+              bottomBar: [
+                BottomBarItem(
+                  icon: const Icon(
+                    Icons.home,
+                  ),
+                  iconSelected: const Icon(
+                    Icons.home,
+                    // color: example.AppColors.cherryRed,
+                    // size: example.Dimens.iconNormal
+                  ),
+                  title: 'home',
+                  dotColor: Colors.black,
+                  onTap: (value) {
+                    setState(() {
+                      index = value;
+                    });
+                    log('Home $value');
+                  },
+                ),
+                BottomBarItem(
+                  icon: const Icon(
+                    Icons.home,
+                  ),
+                  iconSelected: const Icon(
+                    Icons.home,
+                    // color: example.AppColors.cherryRed,
+                    // size: example.Dimens.iconNormal
+                  ),
+                  title: 'home',
+                  dotColor: Colors.black,
+                  onTap: (value) {
+                    setState(() {
+                      index = value;
+                    });
+                    log('Home $value');
+                  },
+                ),
+                BottomBarItem(
+                  icon: const Icon(
+                    Icons.photo,
+                  ),
+                  iconSelected:
+                      const Icon(Icons.photo, color: Colors.black, size: 20),
+                  title: 'search',
+                  dotColor: Colors.black,
+                  onTap: (value) {
+                    setState(() {
+                      index = value;
+                    });
+                    log('Search $value');
+                  },
+                ),
+                BottomBarItem(
+                  icon: const Icon(
+                    Icons.person,
+                  ),
+                  iconSelected:
+                      const Icon(Icons.person, color: Colors.black, size: 20),
+                  title: 'person',
+                  dotColor: Colors.black,
+                  onTap: (value) {
+                    setState(() {
+                      index = value;
+                    });
+                    log('Profile $value');
+                  },
+                ),
+              ],
+              bottomBarCenterModel: BottomBarCenterModel(
+                centerBackgroundColor: Colors.black,
+                centerIcon: const FloatingCenterButton(
+                  child: Icon(
+                    Icons.add,
+                    color: AppColors.white,
+                  ),
+                ),
+                centerIconChild: [
+                  FloatingCenterButtonChild(
+                    child: const Icon(
+                      Icons.home,
+                      color: AppColors.white,
+                    ),
+                    onTap: () => log('Item1'),
+                  ),
+                  FloatingCenterButtonChild(
+                    child: const Icon(
+                      Icons.access_alarm,
+                      color: AppColors.white,
+                    ),
+                    onTap: () => log('Item2'),
+                  ),
+                  FloatingCenterButtonChild(
+                    child: const Icon(
+                      Icons.ac_unit_outlined,
+                      color: AppColors.white,
+                    ),
+                    onTap: () => log('Item3'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

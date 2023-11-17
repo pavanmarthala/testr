@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, duplicate_ignore, use_build_context_synchronously
 
 import 'dart:convert';
 import 'package:eco/pages/info/Add_User.dart';
@@ -34,20 +34,18 @@ class _MydrawerState extends State<Mydrawer> {
     if (jwtToken == null) {
       // Handle the case where the token is not found
       // return null;
+
       showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
-            // ignore: prefer_const_constructors
             title: Text('Error'),
-            // ignore: prefer_const_constructors
             content: Text('Token was not Fount . Please try again later.'),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                // ignore: prefer_const_constructors
                 child: Text('OK'),
               ),
             ],

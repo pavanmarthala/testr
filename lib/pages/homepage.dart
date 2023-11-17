@@ -27,7 +27,7 @@ class _HomepageState extends State<Homepage> {
     super.initState();
     screens = [
       UserInfo(widget.userId),
-      TreeLandinpPage(widget.userId),
+      TreeLandingPage(widget.userId),
       PlantsLandingPage(),
     ];
   }
@@ -78,16 +78,6 @@ class _HomepageState extends State<Homepage> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
-          elevation: 0,
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: const [Colors.teal, Colors.blue],
-              ),
-            ),
-          ),
           title: Text(
             'Home page',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),

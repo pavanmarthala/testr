@@ -112,15 +112,8 @@ class _UserHomePageState extends State<UserHomePage> {
                   automaticallyImplyLeading: false,
                   iconTheme: IconThemeData(
                       color: Colors.white), // Set back button color to white
-                  flexibleSpace: Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [Colors.teal, Colors.blue],
-                      ),
-                    ),
-                  ), // Change the app bar color
+
+                  backgroundColor: Colors.teal, // Change the app bar color
                   title: const Text(
                     'Welcome To ECOHEX',
                     style: TextStyle(
@@ -128,30 +121,10 @@ class _UserHomePageState extends State<UserHomePage> {
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ),
-                  actions: [
-                    // IconButton(
-                    //   onPressed: () {
-                    //     Navigator.of(context).push(
-                    //       MaterialPageRoute(
-                    //         builder: (context) => SingIN(),
-                    //       ),
-                    //     );
-                    //   },
-                    //   icon: Icon(
-                    //     Icons.exit_to_app,
-                    //     size: 30,
-                    //     color: Colors.white,
-                    //   ),
-                    // )
-                  ]),
+                  actions: []),
               body: Center(
                 child: Column(
                   children: [
-                    // Padding(
-                    //   padding: const EdgeInsets.only(top: 40),
-                    //   child:
-                    //       Image.asset("assets/EcoHex_Logo-removebg-preview.png"),
-                    // ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(

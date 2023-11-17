@@ -8,15 +8,15 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-class TreeLandinpPage extends StatefulWidget {
+class TreeLandingPage extends StatefulWidget {
   final String userid;
-  TreeLandinpPage(this.userid, {super.key});
+  TreeLandingPage(this.userid, {super.key});
 
   @override
-  _TreeLandinpPageState createState() => _TreeLandinpPageState();
+  _TreeLandingPageState createState() => _TreeLandingPageState();
 }
 
-class _TreeLandinpPageState extends State<TreeLandinpPage> {
+class _TreeLandingPageState extends State<TreeLandingPage> {
   List<Map<String, String>> deviceList = [];
   List<Map<String, String>> filteredDeviceList = [];
 
@@ -96,24 +96,18 @@ class _TreeLandinpPageState extends State<TreeLandinpPage> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Map<String, String>>>(
-        future: devices,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else {
-            return Scaffold(
-              // backgroundColor: Colors.white,
-              body: Center(
+    return Scaffold(
+      body: FutureBuilder<List<Map<String, String>>>(
+          future: devices,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else {
+              return Center(
                 child: Column(
                   children: [
-                    // Padding(
-                    //   padding: const EdgeInsets.only(top: 40),
-                    //   child:
-                    //       Image.asset("assets/EcoHex_Logo-removebg-preview.png"),
-                    // ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
@@ -139,36 +133,49 @@ class _TreeLandinpPageState extends State<TreeLandinpPage> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8),
-                      child: Container(
-                        width: 210,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [Colors.blue, Colors.teal],
-                          ),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const AddTree(),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            'Add Tree',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(left: 8),
+                    //   child: Container(
+                    //     width: 210,
+                    //     decoration: BoxDecoration(
+                    //       color: Colors.teal[300],
+                    //       // gradient: LinearGradient(
+                    //       //   begin: Alignment.topLeft,
+                    //       //   end: Alignment.bottomRight,
+                    //       //   colors: [Colors.blue, Colors.teal],
+                    //       // ),
+                    //       borderRadius: BorderRadius.circular(10.0),
+                    //     ),
+                    //     child: TextButton(
+                    //       onPressed: () {
+
+                    //       },
+                    //       child: Row(
+                    //         mainAxisAlignment: MainAxisAlignment.center,
+                    //         children: [
+                    //           Icon(
+                    //             Icons.add,
+                    //             color: Colors.white,
+                    //             size: 18,
+                    //           ),
+                    //           SizedBox(
+                    //             width: 4,
+                    //           ),
+                    //           Text(
+                    //             'Add Tree',
+                    //             style: TextStyle(
+                    //               fontSize: 13,
+                    //               color: Colors.white,
+                    //             ),
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   height: 10,
+                    // ),
                     Expanded(
                       child: ListView(
                         children: filteredDeviceList.map((device) {
@@ -197,7 +204,8 @@ class _TreeLandinpPageState extends State<TreeLandinpPage> {
                                   );
                                 },
                                 child: Padding(
-                                  padding: const EdgeInsets.only(left: 20.0),
+                                  padding: const EdgeInsets.only(
+                                      top: 13, left: 20.0),
                                   child: Column(
                                     children: [
                                       Padding(
@@ -216,7 +224,7 @@ class _TreeLandinpPageState extends State<TreeLandinpPage> {
                                         padding: const EdgeInsets.all(5.0),
                                         child: Row(
                                           children: [
-                                            const Text('kathaNumber'),
+                                            const Text('Katha Number'),
                                             SizedBox(
                                               width: 74,
                                             ),
@@ -230,7 +238,7 @@ class _TreeLandinpPageState extends State<TreeLandinpPage> {
                                         padding: const EdgeInsets.all(5.0),
                                         child: Row(
                                           children: [
-                                            const Text('surveyNumber'),
+                                            const Text('Survey Number'),
                                             SizedBox(
                                               width: 70,
                                             ),
@@ -244,7 +252,7 @@ class _TreeLandinpPageState extends State<TreeLandinpPage> {
                                         padding: const EdgeInsets.all(5.0),
                                         child: Row(
                                           children: [
-                                            const Text('numberOfTrees'),
+                                            const Text('Number Of Trees'),
                                             SizedBox(
                                               width: 63,
                                             ),
@@ -269,9 +277,25 @@ class _TreeLandinpPageState extends State<TreeLandinpPage> {
                     )
                   ],
                 ),
-              ),
-            );
-          }
-        });
+              );
+            }
+          }),
+      floatingActionButton: FloatingActionButton.extended(
+        // onPressed: _pickImage,
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const AddTree(),
+            ),
+          );
+        },
+        elevation: 10,
+        tooltip: 'ADD Tree',
+        // foregroundColor: Colors.white,
+        // backgroundColor: Colors.blue,
+        label: const Text('Add Tree'),
+        icon: Icon(Icons.park),
+      ),
+    );
   }
 }
