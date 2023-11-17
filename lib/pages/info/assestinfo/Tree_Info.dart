@@ -359,33 +359,32 @@ class _TreeInfoState extends State<TreeInfo> {
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
-                              Scrollbar(
-                                child: SizedBox(
-                                  height: MediaQuery.of(context).size.height,
-                                  child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: images.length,
-                                    itemBuilder: (context, index) {
-                                      final image = images[index];
-                                      final imageFile = Image.memory(
-                                        base64Decode(image['file']),
-                                        height: 180,
-                                        width: 380,
-                                      );
-                                      return Column(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: imageFile,
-                                          ),
-                                          Text('Location: ${image['latitude'] ?? 'N/A'}' +
-                                              ' ,${image['longitude'] ?? 'N/A'}'),
-                                          Text(
-                                              'Time: ${image['date'] ?? 'N/A'} '),
-                                        ],
-                                      );
-                                    },
-                                  ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.4,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: images.length,
+                                  itemBuilder: (context, index) {
+                                    final image = images[index];
+                                    final imageFile = Image.memory(
+                                      base64Decode(image['file']),
+                                      height: 180,
+                                      width: 380,
+                                    );
+                                    return Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: imageFile,
+                                        ),
+                                        Text('Location: ${image['latitude'] ?? 'N/A'}' +
+                                            ' ,${image['longitude'] ?? 'N/A'}'),
+                                        Text(
+                                            'Time: ${image['date'] ?? 'N/A'} '),
+                                      ],
+                                    );
+                                  },
                                 ),
                               )
                             ],
