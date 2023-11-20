@@ -1,8 +1,9 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, duplicate_ignore, use_build_context_synchronously
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, duplicate_ignore, use_build_context_synchronously, unnecessary_type_check, library_private_types_in_public_api, avoid_print, sized_box_for_whitespace
 
 import 'dart:convert';
+import 'package:eco/auth/signin.dart';
 import 'package:eco/pages/info/Add_User.dart';
-import 'package:eco/pages/info/assestinfo/assestshome.dart';
+import 'package:eco/pages/info/assestinfo/user_profile.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:eco/pages/homepage.dart';
@@ -36,6 +37,27 @@ class _MydrawerState extends State<Mydrawer> {
       print('Error decoding JWT: $e');
       return {};
     }
+  }
+
+  void home() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? username = prefs.getString('username');
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => Homepage(username!)),
+    );
+  }
+
+  void logout() async {
+    // Clear user login details from shared preferences
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('username');
+    prefs.remove('password');
+    prefs.remove('jwt_token');
+
+    // Navigate back to the login page
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => SingIN()),
+    );
   }
 
   Future<bool> checkUserRole() async {
@@ -220,7 +242,10 @@ class _MydrawerState extends State<Mydrawer> {
                                               children: [
                                                 const Text('Name'),
                                                 SizedBox(
-                                                  width: 53,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.14,
                                                 ),
                                                 Text(
                                                   device["name"] ?? "user",
@@ -234,7 +259,10 @@ class _MydrawerState extends State<Mydrawer> {
                                               children: [
                                                 const Text('Role'),
                                                 SizedBox(
-                                                  width: 63,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.17,
                                                 ),
                                                 Text(
                                                   device["role"] ?? "",
@@ -325,8 +353,14 @@ class _MydrawerState extends State<Mydrawer> {
                       ListTile(
                         leading: const Icon(Icons.home_outlined),
                         title: const Text("Home"),
-                        onTap: () {
-                          // Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Homepage(),),);
+                        onTap: () async {
+                          SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          String? username = prefs.getString('username');
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                                builder: (context) => Homepage(username!)),
+                          );
                         },
                       ),
                       // ListTile(
@@ -340,11 +374,11 @@ class _MydrawerState extends State<Mydrawer> {
                         leading: const Icon(Icons.person_outlined),
                         title: const Text("My Profile"),
                         onTap: () {
-                          // Navigator.of(context).push(
-                          //   MaterialPageRoute(
-                          //     builder: (context) => Myprofile(),
-                          //   ),
-                          // );
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => Myprofile(),
+                            ),
+                          );
                         },
                       ),
                       ListTile(
@@ -370,7 +404,9 @@ class _MydrawerState extends State<Mydrawer> {
                       ListTile(
                         leading: const Icon(Icons.exit_to_app_outlined),
                         title: const Text("Log out"),
-                        onTap: () async {},
+                        onTap: () {
+                          logout();
+                        },
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.22,

@@ -1,6 +1,5 @@
-// ignore_for_file: prefer_const_constructors, duplicate_ignore, use_build_context_synchronously, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, library_private_types_in_public_api
+// ignore_for_file: prefer_const_constructors, duplicate_ignore, use_build_context_synchronously, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, library_private_types_in_public_api, unnecessary_type_check
 
-import 'package:eco/pages/homepage.dart';
 import 'package:eco/pages/info/Add_Tree.dart';
 import 'package:eco/pages/info/assestinfo/Tree_Info.dart';
 import 'package:flutter/material.dart';
@@ -212,10 +211,28 @@ class _TreeLandingPageState extends State<TreeLandingPage> {
                                         padding: const EdgeInsets.all(5.0),
                                         child: Row(
                                           children: [
-                                            const Text('ID'),
-                                            SizedBox(width: 145),
+                                            Text(
+                                              'ID',
+                                              style: TextStyle(
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.035,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.4),
                                             Text(
                                               device["id"] ?? "",
+                                              style: TextStyle(
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.035,
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -224,12 +241,29 @@ class _TreeLandingPageState extends State<TreeLandingPage> {
                                         padding: const EdgeInsets.all(5.0),
                                         child: Row(
                                           children: [
-                                            const Text('Katha Number'),
+                                            Text(
+                                              'Katha Number',
+                                              style: TextStyle(
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.035,
+                                              ),
+                                            ),
                                             SizedBox(
-                                              width: 74,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.18,
                                             ),
                                             Text(
                                               device["kathaNumber"] ?? "user",
+                                              style: TextStyle(
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.035,
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -238,12 +272,29 @@ class _TreeLandingPageState extends State<TreeLandingPage> {
                                         padding: const EdgeInsets.all(5.0),
                                         child: Row(
                                           children: [
-                                            const Text('Survey Number'),
+                                            Text(
+                                              'Survey Number',
+                                              style: TextStyle(
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.035,
+                                              ),
+                                            ),
                                             SizedBox(
-                                              width: 70,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.17,
                                             ),
                                             Text(
                                               device["surveyNumber"] ?? "",
+                                              style: TextStyle(
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.035,
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -252,12 +303,29 @@ class _TreeLandingPageState extends State<TreeLandingPage> {
                                         padding: const EdgeInsets.all(5.0),
                                         child: Row(
                                           children: [
-                                            const Text('Number Of Trees'),
+                                            Text(
+                                              'Number Of Trees',
+                                              style: TextStyle(
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.035,
+                                              ),
+                                            ),
                                             SizedBox(
-                                              width: 63,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.14,
                                             ),
                                             Text(
                                               device["numberOfTrees"] ?? "",
+                                              style: TextStyle(
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.035,
+                                              ),
                                             ),
                                           ],
                                         ),

@@ -1,5 +1,6 @@
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, unnecessary_type_check, library_private_types_in_public_api, file_names, avoid_print, prefer_const_literals_to_create_immutables
+
 import 'dart:convert';
-import 'package:eco/pages/info/Add_User.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:eco/pages/homepage.dart';
@@ -37,16 +38,13 @@ class _AdminHomePageState extends State<AdminHomePage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            // ignore: prefer_const_constructors
             title: Text('Error'),
-            // ignore: prefer_const_constructors
             content: Text('Token was not Fount . Please try again later.'),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                // ignore: prefer_const_constructors
                 child: Text('OK'),
               ),
             ],
@@ -191,7 +189,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
                                               width: MediaQuery.of(context)
                                                       .size
                                                       .height *
-                                                  0.1,
+                                                  0.13,
                                             ),
                                             Text(
                                               device["id"] ?? "",
@@ -205,7 +203,10 @@ class _AdminHomePageState extends State<AdminHomePage> {
                                           children: [
                                             const Text('Name'),
                                             SizedBox(
-                                              width: 53,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.2,
                                             ),
                                             Text(
                                               device["name"] ?? "user",
@@ -219,7 +220,10 @@ class _AdminHomePageState extends State<AdminHomePage> {
                                           children: [
                                             const Text('Role'),
                                             SizedBox(
-                                              width: 63,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.23,
                                             ),
                                             Text(
                                               device["role"] ?? "",

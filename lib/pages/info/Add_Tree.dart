@@ -1,14 +1,11 @@
-// ignore_for_file: non_constant_identifier_names, prefer_const_constructors, deprecated_member_use, sized_box_for_whitespace, camel_case_types, body_might_complete_normally_nullable, no_leading_underscores_for_local_identifiers, unused_local_variable
+// ignore_for_file: non_constant_identifier_names, prefer_const_constructors, deprecated_member_use, sized_box_for_whitespace, camel_case_types, body_might_complete_normally_nullable, no_leading_underscores_for_local_identifiers, unused_local_variable, no_logic_in_create_state, library_private_types_in_public_api, avoid_print, file_names
 
 import 'dart:convert';
 
 import 'package:eco/pages/Tree_LandingPage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 
 import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 

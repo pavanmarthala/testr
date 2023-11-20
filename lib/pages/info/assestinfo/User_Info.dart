@@ -1,13 +1,10 @@
 // ignore_for_file: prefer_const_constructors, use_build_context_synchronously, prefer_const_literals_to_create_immutables, depend_on_referenced_packages, unused_element, non_constant_identifier_names
 
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class UserInfo extends StatefulWidget {
   final String UserId;
@@ -20,7 +17,6 @@ class UserInfo extends StatefulWidget {
 
 class _TreeInfoState extends State<UserInfo> {
   late Future<Map<String, dynamic>> treeInfo;
-  File? _selectedImage;
 
   @override
   void initState() {

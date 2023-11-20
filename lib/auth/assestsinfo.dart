@@ -1,15 +1,15 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, library_private_types_in_public_api, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 
-class assestsinfo extends StatefulWidget {
-  const assestsinfo({Key? key}) : super(key: key);
+class Assestsinfo extends StatefulWidget {
+  const Assestsinfo({Key? key}) : super(key: key);
 
   @override
-  _EditUserState createState() => _EditUserState();
+  _AssestsinfoState createState() => _AssestsinfoState();
 }
 
-class _EditUserState extends State<assestsinfo> {
+class _AssestsinfoState extends State<Assestsinfo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
