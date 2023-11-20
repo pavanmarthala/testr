@@ -257,7 +257,7 @@ class _MydrawerState extends State<Mydrawer> {
                               onTap: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => Adduser(),
+                                    builder: (context) => AddUserPage(),
                                   ),
                                 );
                               },

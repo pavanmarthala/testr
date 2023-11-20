@@ -5,13 +5,14 @@ import 'package:eco/pages/Tree_LandingPage.dart';
 import 'package:eco/pages/info/assestinfo/User_Info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 class UserHomePage extends StatefulWidget {
   final String userId;
-  const UserHomePage(this.userId, {super.key});
 
+  UserHomePage(this.userId);
   @override
   _UserHomePageState createState() => _UserHomePageState();
 }
@@ -55,21 +56,6 @@ class _UserHomePageState extends State<UserHomePage> {
       print('Error decoding JWT: $e');
       return {};
     }
-  }
-
-  Future<bool> checkUserRole() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? jwtToken = prefs.getString('jwt_token');
-
-    if (jwtToken != null) {
-      Map<String, dynamic> decodedToken = decodeJwt(jwtToken);
-      List<dynamic> authorities = decodedToken['authorities'];
-
-      return authorities.contains('admin') ||
-          authorities.contains('superAdmin');
-    }
-
-    return false;
   }
 
   @override
