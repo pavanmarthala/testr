@@ -361,8 +361,16 @@ class _TreeLandingPageState extends State<TreeLandingPage> {
         tooltip: 'ADD Tree',
         // foregroundColor: Colors.white,
         // backgroundColor: Colors.blue,
-        label: const Text('Add Tree'),
-        icon: Icon(Icons.park),
+        label: Text(
+          'Add Tree',
+          style: TextStyle(
+            fontSize: MediaQuery.of(context).size.width * 0.035,
+          ),
+        ),
+        icon: Icon(
+          Icons.park,
+          size: MediaQuery.of(context).size.width * 0.06,
+        ),
       ),
     );
   }
