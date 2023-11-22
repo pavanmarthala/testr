@@ -85,9 +85,9 @@ class _TreeLandingPageState extends State<TreeLandingPage> {
     setState(() {
       filteredDeviceList = deviceList
           .where((device) =>
-              // (device["kathaNumber"] ?? "")
-              //     .toLowerCase()
-              //     .contains(query.toLowerCase()) ||
+              (device["kathaNumber"] ?? "")
+                  .toLowerCase()
+                  .contains(query.toLowerCase()) ||
               (device["id"] ?? "").toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
@@ -120,7 +120,7 @@ class _TreeLandingPageState extends State<TreeLandingPage> {
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 0),
-                            hintText: 'Search for Users',
+                            hintText: 'Search for katha Number',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
                               borderSide: BorderSide(),

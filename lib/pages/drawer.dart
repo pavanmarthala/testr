@@ -2,7 +2,11 @@
 
 import 'dart:convert';
 import 'package:eco/auth/signin.dart';
+<<<<<<< HEAD
 import 'package:eco/pages/User_HomePage.dart';
+=======
+import 'package:eco/pages/User_homePage.dart';
+>>>>>>> cfb2751b32eddbcaa3fda7eade2b17ee926d1041
 import 'package:eco/pages/info/Add_User.dart';
 import 'package:eco/pages/info/assestinfo/user_profile.dart';
 import 'package:http/http.dart' as http;

@@ -63,6 +63,7 @@ dependencies:
   material_dialogs: ^1.1.4
   animated_card: ^2.0.0
   geolocator: ^10.1.0
+  flutter_native_splash: ^2.3.6
 dev_dependencies:
   flutter_test:
     sdk: flutter
