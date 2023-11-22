@@ -1,9 +1,10 @@
+// ignore_for_file: avoid_print, use_build_context_synchronously, prefer_const_constructors
+
 import 'dart:convert';
 import 'package:eco/auth/forgot.dart';
 import 'package:eco/auth/register.dart';
 import 'package:eco/pages/Admin_HomePage.dart';
 import 'package:eco/pages/User_HomePage.dart';
-import 'package:eco/pages/homepage.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,6 +14,8 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SingIN extends StatefulWidget {
+  const SingIN({super.key});
+
   @override
   State<SingIN> createState() => _SingINState();
 }
@@ -67,21 +70,22 @@ class _SingINState extends State<SingIN> {
         // Decode the token to check user role
         final Map<String, dynamic> decodedToken =
             JwtDecoder.decode(data['token']);
+        String userId = decodedToken['sub'];
         List<dynamic> authorities = decodedToken['authorities'];
 
         if (authorities.contains('superAdmin') ||
             (authorities.contains('Admin'))) {
           // Navigate to the admin panel (Adminlandingpage)
-          Navigator.of(context).push(
+          Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (context) => AdminHomePage(),
             ),
           );
         } else {
           // Navigate to the user panel (Landingpage)
-          Navigator.of(context).push(
+          Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) => UserHomePage("9700930088"),
+              builder: (context) => UserHomePage(userId),
             ),
           );
         }
@@ -122,6 +126,7 @@ class _SingINState extends State<SingIN> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.grey,
       ),
       backgroundColor: Colors.grey,

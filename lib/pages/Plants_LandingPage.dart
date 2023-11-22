@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:eco/pages/info/Add_Plant.dart';
-import 'package:eco/pages/info/assestinfo/Plants_info.dart';
 import 'package:flutter/material.dart';
 
 class PlantsLandingPage extends StatefulWidget {

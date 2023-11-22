@@ -1,18 +1,13 @@
-import 'package:eco/auth/signin.dart';
 import 'package:eco/pages/Drawer.dart';
 import 'package:eco/pages/Plants_LandingPage.dart';
 import 'package:eco/pages/Tree_LandingPage.dart';
-import 'package:eco/pages/info/assestinfo/User_Info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
-
 class UserHomePage extends StatefulWidget {
   final String userId;
+  const UserHomePage(this.userId, {super.key});
 
-  UserHomePage(this.userId);
   @override
   _UserHomePageState createState() => _UserHomePageState();
 }
@@ -26,7 +21,6 @@ class _UserHomePageState extends State<UserHomePage> {
     super.initState();
 
     screens = [
-      // UserInfo(widget.userId),
       TreeLandingPage(widget.userId),
       PlantsLandingPage(),
     ];
@@ -36,27 +30,6 @@ class _UserHomePageState extends State<UserHomePage> {
   PageController pageController = PageController(initialPage: 0);
 
   final _advancedDrawerController = AdvancedDrawerController();
-  void logout() async {
-    // Clear user login details from shared preferences
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove('username');
-    prefs.remove('password');
-    prefs.remove('jwt_token');
-
-    // Navigate back to the login page
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => SingIN()),
-    );
-  }
-
-  Map<String, dynamic> decodeJwt(String token) {
-    try {
-      return JwtDecoder.decode(token);
-    } catch (e) {
-      print('Error decoding JWT: $e');
-      return {};
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,17 +79,7 @@ class _UserHomePageState extends State<UserHomePage> {
               },
             ),
           ),
-          actions: [
-            IconButton(
-                onPressed: () async {
-                  logout();
-                },
-                icon: Icon(
-                  Icons.exit_to_app,
-                  size: 30,
-                  color: Colors.black,
-                ))
-          ],
+          actions: [],
         ),
         backgroundColor: Colors.teal,
         body: screens[index],
@@ -133,10 +96,6 @@ class _UserHomePageState extends State<UserHomePage> {
             onDestinationSelected: (index) =>
                 setState(() => this.index = index),
             destinations: const [
-              // NavigationDestination(
-              //   icon: Icon(Icons.person),
-              //   label: 'User Info',
-              // ),
               NavigationDestination(
                 icon: Icon(Icons.park),
                 label: 'Tree Info',

@@ -2,7 +2,9 @@
 
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:http_parser/http_parser.dart' show MediaType;
+import 'package:geolocator/geolocator.dart';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -24,11 +26,20 @@ class _TreeInfoState extends State<TreeInfo> {
   late Future<List<Map<String, dynamic>>> treeImages;
   File? _selectedImage;
 
+  late PageController _pageController;
+
   @override
   void initState() {
     super.initState();
     treeInfo = fetchTreeInfo();
     treeImages = fetchTreeImages();
+    _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 
   Future<Map<String, dynamic>> fetchTreeInfo() async {
@@ -123,6 +134,32 @@ class _TreeInfoState extends State<TreeInfo> {
     String? jwtToken = prefs.getString('jwt_token');
 
     try {
+      LocationPermission permission = await Geolocator.checkPermission();
+
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+
+        if (permission != LocationPermission.whileInUse &&
+            permission != LocationPermission.always) {
+          // Handle the case where the user denies location permission
+          print('User denied permissions to access the device\'s location.');
+
+          // You can display a message to the user or navigate to app settings
+          // Example:
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   SnackBar(
+          //     content: Text('Location permission is required to upload an image.'),
+          //   ),
+          // );
+
+          // Alternatively, you can redirect the user to the app settings
+          // Example:
+          // Geolocator.openAppSettings();
+
+          return;
+        }
+      }
+
       final request = http.MultipartRequest(
         'POST',
         Uri.parse('https://api.ecohex.in/image/upload'),
@@ -130,25 +167,36 @@ class _TreeInfoState extends State<TreeInfo> {
 
       request.headers["Authorization"] = "Bearer $jwtToken";
       request.fields["treeId"] = widget.treeId;
-      request.fields["longitude"] = widget.treeId;
-      request.fields["latitude"] = widget.treeId;
+
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.best,
+      );
+
+      request.fields["latitude"] = position.latitude.toString();
+      request.fields["longitude"] = position.longitude.toString();
 
       request.files.add(
         await http.MultipartFile.fromPath(
           'file',
           image.path,
-          contentType:
-              MediaType('image', 'jpeg'), // Adjust the content type as needed
+          contentType: MediaType('image', 'jpeg'),
         ),
       );
+
       final response = await request.send();
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 202) {
+        // Request accepted, but response might be empty
+        print('Image upload accepted, processing...');
+        print('Response: ${await response.stream.bytesToString()}');
+      } else if (response.statusCode == 200) {
         // Image uploaded successfully
         print('Image uploaded successfully');
       } else {
         print(
             'Image upload failed: ${response.statusCode} - ${response.reasonPhrase}');
+        // Print the response body for more details
+        print('Response: ${await response.stream.bytesToString()}');
         // Handle error
       }
     } catch (e) {
@@ -183,15 +231,16 @@ class _TreeInfoState extends State<TreeInfo> {
                     ),
                   ),
                   Container(
-                    child: const Text(
+                    child: Text(
                       'Take a Photo',
-                      style: TextStyle(fontSize: 13),
+                      style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.width * 0.035),
                     ),
                   )
                 ],
               ),
               SizedBox(
-                width: 80,
+                width: MediaQuery.of(context).size.width * 0.2,
               ),
               Column(
                 children: <Widget>[
@@ -207,8 +256,10 @@ class _TreeInfoState extends State<TreeInfo> {
                     ),
                   ),
                   Container(
-                    child: const Text('Select from Gallary',
-                        style: TextStyle(fontSize: 13)),
+                    child: Text('Select from Gallary',
+                        style: TextStyle(
+                            fontSize:
+                                MediaQuery.of(context).size.width * 0.035)),
                   )
                 ],
               )
@@ -234,25 +285,19 @@ class _TreeInfoState extends State<TreeInfo> {
                 children: [
                   Column(
                     children: <Widget>[
-                      MaterialButton(
-                        onPressed: () {
-                          Navigator.of(context).pop(); // Close the dialog
-                          setState(() {
-                            _selectedImage = null; // Clear the selected image
-                          });
-                        },
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        color: Colors.red,
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.04,
+                        width: MediaQuery.of(context).size.width * 0.27,
+                        decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(7)),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
                               Icons.clear,
                               color: Colors.white,
-                              size: 18,
+                              size: MediaQuery.of(context).size.width * 0.032,
                             ),
                             SizedBox(
                               width: 4,
@@ -260,49 +305,61 @@ class _TreeInfoState extends State<TreeInfo> {
                             Text(
                               'Clear',
                               style: TextStyle(
-                                fontSize: 13,
+                                fontSize:
+                                    MediaQuery.of(context).size.width * 0.032,
                                 color: Colors.white,
                               ),
                             ),
                           ],
                         ),
-                      ),
+                      )
                     ],
                   ),
                   SizedBox(
-                    width: 20,
+                    width: MediaQuery.of(context).size.width * 0.1,
                   ),
                   Column(
                     children: <Widget>[
-                      OutlinedButton(
-                          onPressed: () {
-                            Navigator.of(context).pop(); // Close the dialog
-                            _uploadImage(imageFile);
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.upload,
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.04,
+                        width: MediaQuery.of(context).size.width * 0.27,
+                        decoration: BoxDecoration(
+                            // color: Colors.red,
+                            border: Border.all(
+                                color: Colors.green, style: BorderStyle.solid),
+                            borderRadius: BorderRadius.circular(7)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.upload,
+                              color: Colors.green,
+                              size: MediaQuery.of(context).size.width * 0.035,
+                            ),
+                            SizedBox(
+                              width: 4,
+                            ),
+                            Text(
+                              'upload',
+                              style: TextStyle(
+                                fontSize:
+                                    MediaQuery.of(context).size.width * 0.035,
                                 color: Colors.green,
-                                size: 18,
                               ),
-                              SizedBox(
-                                width: 4,
-                              ),
-                              Text(
-                                'upload',
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  color: Colors.green,
-                                ),
-                              ),
-                            ],
-                          ),
-                          style: OutlinedButton.styleFrom(
-                              side: BorderSide(color: Colors.green),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)))),
+                            ),
+                          ],
+                        ),
+                      )
+                      // OutlinedButton(
+                      //     onPressed: () {
+                      //       Navigator.of(context).pop(); // Close the dialog
+                      //       _uploadImage(imageFile);
+                      //     },
+
+                      //     style: OutlinedButton.styleFrom(
+                      //         side: BorderSide(color: Colors.green),
+                      //         shape: RoundedRectangleBorder(
+                      //             borderRadius: BorderRadius.circular(10)))),
                     ],
                   )
                 ],
@@ -486,7 +543,7 @@ class _TreeInfoState extends State<TreeInfo> {
                               SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height * 0.4,
-                                child: ListView.builder(
+                                child: PageView.builder(
                                   scrollDirection: Axis.vertical,
                                   itemCount: images.length,
                                   itemBuilder: (context, index) {
@@ -496,19 +553,80 @@ class _TreeInfoState extends State<TreeInfo> {
                                       height: 180,
                                       width: 380,
                                     );
-                                    return Column(
+                                    return Stack(
                                       children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: imageFile,
+                                        GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ImageFullScreen(
+                                                  imageUrls: List<String>.from(
+                                                      images.map((image) =>
+                                                          image['file']
+                                                              as String)),
+                                                  initialIndex: index,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          child: Column(
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(18.0),
+                                                child: imageFile,
+                                              ),
+                                              Text('Location: ${image['latitude'] ?? 'N/A'}' +
+                                                  ' ,${image['longitude'] ?? 'N/A'}'),
+                                              Text(
+                                                  'Time: ${image['date'] ?? 'N/A'} '),
+                                            ],
+                                          ),
                                         ),
-                                        Text('Location: ${image['latitude'] ?? 'N/A'}' +
-                                            ' ,${image['longitude'] ?? 'N/A'}'),
-                                        Text(
-                                            'Time: ${image['date'] ?? 'N/A'} '),
+                                        Positioned(
+                                          left: -18,
+                                          top:
+                                              85, // Adjust the position as needed
+                                          child: IconButton(
+                                            icon: Icon(Icons.chevron_left),
+                                            onPressed: () {
+                                              // Navigate to the previous image
+                                              if (index > 0) {
+                                                // Check if it's not the first image
+                                                _pageController.previousPage(
+                                                  duration: Duration(
+                                                      milliseconds: 300),
+                                                  curve: Curves.ease,
+                                                );
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                        Positioned(
+                                          right: -18,
+                                          top:
+                                              85, // Adjust the position as needed
+                                          child: IconButton(
+                                            icon: Icon(Icons.chevron_right),
+                                            onPressed: () {
+                                              // Navigate to the next image
+                                              if (index < images.length - 1) {
+                                                // Check if it's not the last image
+                                                _pageController.nextPage(
+                                                  duration: Duration(
+                                                      milliseconds: 300),
+                                                  curve: Curves.ease,
+                                                );
+                                              }
+                                            },
+                                          ),
+                                        ),
                                       ],
                                     );
                                   },
+                                  controller: _pageController,
                                 ),
                               )
                             ],
@@ -590,5 +708,93 @@ class UserInfoRow extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+// image_full_screen.dart
+
+class ImageFullScreen extends StatefulWidget {
+  final List<String> imageUrls;
+  final int initialIndex;
+
+  const ImageFullScreen({
+    Key? key,
+    required this.imageUrls,
+    required this.initialIndex,
+  }) : super(key: key);
+
+  @override
+  _ImageFullScreenState createState() => _ImageFullScreenState();
+}
+
+class _ImageFullScreenState extends State<ImageFullScreen> {
+  late int currentIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    currentIndex = widget.initialIndex;
+  }
+
+  void _goToPreviousImage() {
+    if (currentIndex > 0) {
+      setState(() {
+        currentIndex--;
+      });
+    }
+  }
+
+  void _goToNextImage() {
+    if (currentIndex < widget.imageUrls.length - 1) {
+      setState(() {
+        currentIndex++;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Image Preview'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Image.memory(
+                _decodeImage(widget.imageUrls[currentIndex]),
+                fit: BoxFit.contain,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: _goToPreviousImage,
+                ),
+                IconButton(
+                  icon: Icon(Icons.arrow_forward),
+                  onPressed: _goToNextImage,
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Uint8List _decodeImage(String imageUrl) {
+    try {
+      return base64Decode(imageUrl);
+    } catch (e) {
+      print("Error decoding image: $e");
+      return Uint8List(0);
+    }
   }
 }

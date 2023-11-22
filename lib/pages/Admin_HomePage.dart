@@ -1,8 +1,11 @@
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, unnecessary_type_check, library_private_types_in_public_api, file_names, avoid_print, prefer_const_literals_to_create_immutables
+
 import 'dart:convert';
-import 'package:eco/pages/info/Add_User.dart';
+import 'package:eco/pages/info/Add_Tree.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:eco/pages/homepage.dart';
+// Import the AddTree page
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -30,23 +33,17 @@ class _AdminHomePageState extends State<AdminHomePage> {
     String? jwtToken = prefs.getString('jwt_token');
 
     if (jwtToken == null) {
-      // Handle the case where the token is not found
-      // return null;
-      // ignore: use_build_context_synchronously
       showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
-            // ignore: prefer_const_constructors
             title: Text('Error'),
-            // ignore: prefer_const_constructors
-            content: Text('Token was not Fount . Please try again later.'),
+            content: Text('Token was not found. Please try again later.'),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                // ignore: prefer_const_constructors
                 child: Text('OK'),
               ),
             ],
@@ -54,6 +51,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
         },
       );
     }
+
     final response = await http.get(
       Uri.https('api.ecohex.in', '/user/getUserIds'),
       headers: {
@@ -73,7 +71,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
           };
         }).toList();
 
-        filterDevices(''); // Initialize with an empty query
+        filterDevices('');
         return deviceList;
       } else {
         return <Map<String, String>>[];
@@ -88,9 +86,6 @@ class _AdminHomePageState extends State<AdminHomePage> {
     setState(() {
       filteredDeviceList = deviceList
           .where((device) =>
-              // (device["name"] ?? "")
-              //     .toLowerCase()
-              //     .contains(query.toLowerCase()) ||
               (device["id"] ?? "").toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
@@ -99,149 +94,167 @@ class _AdminHomePageState extends State<AdminHomePage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Map<String, String>>>(
-        future: devices,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else {
-            return Scaffold(
-              backgroundColor: Colors.white,
-              appBar: AppBar(
-                  automaticallyImplyLeading: false,
-                  iconTheme: IconThemeData(
-                      color: Colors.white), // Set back button color to white
-
-                  backgroundColor: Colors.teal, // Change the app bar color
-                  title: const Text(
-                    'Welcome To ECOHEX',
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
-                  actions: []),
-              body: Center(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        width: MediaQuery.of(context).size.height * 0.5,
-                        height: MediaQuery.of(context).size.height * 0.07,
-                        // color: Colors.black,
-                        child: TextField(
-                          onChanged: (value) {
-                            filterDevices(value);
-                          },
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 0),
-                            hintText: 'Search for Users',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                              borderSide: BorderSide(),
-                            ),
-                            fillColor: Colors.white54,
-                            filled: true,
-                            suffixIcon: const Icon(Icons.search),
+      future: devices,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else {
+          return Scaffold(
+            backgroundColor: Colors.white,
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              iconTheme: IconThemeData(
+                color: Colors.white,
+              ),
+              backgroundColor: Colors.teal,
+              title: const Text(
+                'Welcome To ECOHEX',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              actions: [],
+            ),
+            body: Center(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: MediaQuery.of(context).size.height * 0.5,
+                      height: MediaQuery.of(context).size.height * 0.07,
+                      child: TextField(
+                        onChanged: (value) {
+                          filterDevices(value);
+                        },
+                        decoration: InputDecoration(
+                          contentPadding:
+                              EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                          hintText: 'Search for Users',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(),
                           ),
+                          fillColor: Colors.white54,
+                          filled: true,
+                          suffixIcon: const Icon(Icons.search),
                         ),
                       ),
                     ),
-                    Expanded(
-                      child: ListView(
-                        children: filteredDeviceList.map((device) {
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                                left: 10, top: 10, right: 10),
-                            child: Container(
-                              // width: MediaQuery.of(context).size.height * 0.2,
-                              height: 110,
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                  colors: [Colors.blue, Colors.teal],
-                                ),
-                                borderRadius: BorderRadius.circular(15),
-                                // border: Border.all(),
+                  ),
+                  Expanded(
+                    child: ListView(
+                      children: filteredDeviceList.map((device) {
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                              left: 10, top: 10, right: 10),
+                          child: Container(
+                            height: 110,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                colors: [Colors.blue, Colors.teal],
                               ),
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) => Homepage(
-                                        device["id"] ?? "",
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => Homepage(
+                                      device["id"] ?? "",
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 20.0),
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Row(
+                                        children: [
+                                          const Text('ID'),
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.13,
+                                          ),
+                                          Text(
+                                            device["id"] ?? "",
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                  );
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 20.0),
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(5.0),
-                                        child: Row(
-                                          children: [
-                                            const Text('ID'),
-                                            SizedBox(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.1,
-                                            ),
-                                            Text(
-                                              device["id"] ?? "",
-                                            ),
-                                          ],
-                                        ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Row(
+                                        children: [
+                                          const Text('Name'),
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.2,
+                                          ),
+                                          Text(
+                                            device["name"] ?? "user",
+                                          ),
+                                        ],
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(5.0),
-                                        child: Row(
-                                          children: [
-                                            const Text('Name'),
-                                            SizedBox(
-                                              width: 53,
-                                            ),
-                                            Text(
-                                              device["name"] ?? "user",
-                                            ),
-                                          ],
-                                        ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Row(
+                                        children: [
+                                          const Text('Role'),
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.23,
+                                          ),
+                                          Text(
+                                            device["role"] ?? "",
+                                          ),
+                                        ],
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(5.0),
-                                        child: Row(
-                                          children: [
-                                            const Text('Role'),
-                                            SizedBox(
-                                              width: 63,
-                                            ),
-                                            Text(
-                                              device["role"] ?? "",
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
-                          );
-                        }).toList(),
-                      ),
+                          ),
+                        );
+                      }).toList(),
                     ),
-                    // Spacer(),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            );
-          }
-        });
+            ),
+            floatingActionButton: FloatingActionButton.extended(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const AddTree(),
+                  ),
+                );
+              },
+              elevation: 10,
+              tooltip: 'Add Tree',
+              label: const Text('Add User'),
+              icon: Icon(Icons.person),
+            ),
+          );
+        }
+      },
+    );
   }
 }

@@ -1,98 +1,295 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last, no_leading_underscores_for_local_identifiers, deprecated_member_use, unused_local_variable
+
 import 'package:flutter/material.dart';
 
-class AddUserPage extends StatefulWidget {
-  const AddUserPage({Key? key}) : super(key: key);
+class Adduser extends StatefulWidget {
+  const Adduser({super.key});
 
   @override
-  _AddUserPageState createState() => _AddUserPageState();
+  State<Adduser> createState() => _dataState();
+
+  // void onDeviceAdded(String deviceName) {}
 }
 
-class _AddUserPageState extends State<AddUserPage> {
-  final _formKey = GlobalKey<FormState>();
-  final _controllers = <TextEditingController>[];
-
-  @override
-  void initState() {
-    super.initState();
-    _controllers.addAll(List.generate(15, (_) => TextEditingController()));
-  }
-
+class _dataState extends State<Adduser> {
   @override
   Widget build(BuildContext context) {
+    final _lastnameController = TextEditingController();
+    final _firstnameController = TextEditingController();
+    final _pinController = TextEditingController();
+    final _emailController = TextEditingController();
+    final _subscriptioncontroller = TextEditingController();
+    final _zonecontroller = TextEditingController();
+    final _languagecontroller = TextEditingController();
+    final _mobileNocontroller = TextEditingController();
+    final _rolecontroller = TextEditingController();
+    final _address1controller = TextEditingController();
+    final _address2controller = TextEditingController();
+    final _address3controller = TextEditingController();
+    final _statecontroller = TextEditingController();
+    final _districtcontroller = TextEditingController();
+    final _citycontroller = TextEditingController();
+    final _landmarkcontroller = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Add User',
-          style: TextStyle(color: Colors.black),
-        ),
-        backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor: Colors.white,
+        title: const Text(
+          "Add User",
+          style: TextStyle(
+              fontWeight: FontWeight.bold, color: Colors.black, fontSize: 25),
+        ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: ListView(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildTextField('Mobile Number', _controllers[0]),
-              _buildTextField('First Name', _controllers[1]),
-              _buildTextField('Last Name', _controllers[2]),
-              _buildTextField('Email Id', _controllers[3]),
-              _buildTextField('PIN', _controllers[4]),
-              _buildTextField('Role', _controllers[5]),
-              _buildTextField('Preferred Language', _controllers[6]),
-              _buildTextField('Address Line 1', _controllers[7]),
-              _buildTextField('Address Line 2', _controllers[8]),
-              _buildTextField('Address Line 3', _controllers[9]),
-              _buildTextField('State', _controllers[10]),
-              _buildTextField('District', _controllers[11]),
-              _buildTextField('Zone', _controllers[12]),
-              _buildTextField('City', _controllers[13]),
-              _buildTextField('Landmark', _controllers[14]),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    // Process the form data
-                    // Your logic here
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.blue,
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Mobile Number',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              TextField(
+                controller: _mobileNocontroller,
+                decoration: InputDecoration(
+                  hintText: 'Enter Mobile Number',
                 ),
-                child: Text('Add User'),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'First Name',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              TextField(
+                controller: _firstnameController,
+                decoration: InputDecoration(
+                  hintText: 'Enter first name',
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'last Name',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              TextField(
+                controller: _lastnameController,
+                decoration: InputDecoration(
+                  hintText: 'Enter last Name',
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Email Id',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              TextField(
+                controller: _emailController,
+                decoration: InputDecoration(
+                  hintText: 'Enter email id',
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              // Text(
+              //   'Subscription validity Till',
+              //   style: Theme.of(context).textTheme.headline6,
+              // ),
+              // TextField(
+              //   controller: _subscriptioncontroller,
+              //   decoration: InputDecoration(
+              //     hintText: 'select validity',
+              //   ),
+              // ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'PIN',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              TextField(
+                controller: _pinController,
+                decoration: InputDecoration(
+                  hintText: 'Enter Device Pin',
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Role',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              TextField(
+                controller: _rolecontroller,
+                decoration: InputDecoration(
+                  hintText: 'Enter prefered role',
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Preferd language',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              TextField(
+                controller: _languagecontroller,
+                decoration: InputDecoration(
+                  hintText: 'Enter Preferd language',
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Role',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              TextField(
+                controller: _rolecontroller,
+                decoration: InputDecoration(
+                  hintText: 'Enter prefered role',
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Address Line 1',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              TextField(
+                controller: _address1controller,
+                decoration: InputDecoration(
+                  hintText: 'Enter address line 1',
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Address Line 2',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              TextField(
+                controller: _address2controller,
+                decoration: InputDecoration(
+                  hintText: 'Enter address line 2',
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Address Line 3',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              TextField(
+                controller: _address3controller,
+                decoration: InputDecoration(
+                  hintText: 'Enter address line 3',
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'State',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              TextField(
+                controller: _statecontroller,
+                decoration: InputDecoration(
+                  hintText: 'Enter state',
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'District',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              TextField(
+                controller: _districtcontroller,
+                decoration: InputDecoration(
+                  hintText: 'Enter district',
+                ),
+              ),
+              Text(
+                'zone',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              TextField(
+                controller: _zonecontroller,
+                decoration: InputDecoration(
+                  hintText: 'Enter zone',
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'City',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              TextField(
+                controller: _citycontroller,
+                decoration: InputDecoration(
+                  hintText: 'Enter city',
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Land mark',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              TextField(
+                controller: _landmarkcontroller,
+                decoration: InputDecoration(
+                  hintText: 'Enter landmark',
+                ),
+              ),
+              SizedBox(
+                height: 90,
               ),
             ],
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildTextField(String label, TextEditingController controller) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: TextFormField(
-        controller: controller,
-        decoration: InputDecoration(
-          labelText: label,
-          border: OutlineInputBorder(),
+      bottomNavigationBar: BottomAppBar(
+        child: SafeArea(
+          child: Center(
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                primary: Color.fromARGB(
+                    255, 112, 112, 205), // Change the button's background color
+                fixedSize: Size(500, 50), // Increase the button's size
+              ),
+              child: Text(
+                'Add User',
+                style: TextStyle(fontSize: 20, color: Colors.black),
+              ),
+            ),
+          ),
         ),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return 'Please enter $label';
-          }
-          return null;
-        },
       ),
     );
   }
-}
-
-void main() {
-  runApp(
-    MaterialApp(
-      home: AddUserPage(),
-    ),
-  );
 }

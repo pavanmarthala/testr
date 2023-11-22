@@ -1,9 +1,12 @@
+// ignore_for_file: library_private_types_in_public_api, prefer_const_constructors, sort_child_properties_last
+
 import 'dart:async';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:eco/auth/signin.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
+  const ForgotPasswordPage({super.key});
+
   @override
   _ForgotPasswordPageState createState() => _ForgotPasswordPageState();
 }

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last, no_leading_underscores_for_local_identifiers, deprecated_member_use
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last, no_leading_underscores_for_local_identifiers, deprecated_member_use, camel_case_types, file_names
 
 import 'package:flutter/material.dart';
 
@@ -18,18 +18,9 @@ class _dataState extends State<AddPlant> {
     final _firstnameController = TextEditingController();
     final _pinController = TextEditingController();
     final _emailController = TextEditingController();
-    final _subscriptioncontroller = TextEditingController();
-    final _zonecontroller = TextEditingController();
     final _languagecontroller = TextEditingController();
     final _mobileNocontroller = TextEditingController();
     final _rolecontroller = TextEditingController();
-    final _address1controller = TextEditingController();
-    final _address2controller = TextEditingController();
-    final _address3controller = TextEditingController();
-    final _statecontroller = TextEditingController();
-    final _districtcontroller = TextEditingController();
-    final _citycontroller = TextEditingController();
-    final _landmarkcontroller = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(

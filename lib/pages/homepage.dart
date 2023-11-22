@@ -1,10 +1,10 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, library_private_types_in_public_api, avoid_print
 
-import 'package:eco/auth/signin.dart';
 import 'package:eco/pages/Drawer.dart';
 import 'package:eco/pages/Plants_LandingPage.dart';
 import 'package:eco/pages/Tree_LandingPage.dart';
 import 'package:eco/pages/info/assestinfo/User_Info.dart';
+import 'package:eco/pages/Profile_page.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
@@ -14,7 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Homepage extends StatefulWidget {
   final String userId;
 
-  Homepage(this.userId);
+  Homepage(this.userId, {super.key});
   @override
   _HomepageState createState() => _HomepageState();
 }
@@ -38,18 +38,6 @@ class _HomepageState extends State<Homepage> {
   PageController pageController = PageController(initialPage: 0);
 
   final _advancedDrawerController = AdvancedDrawerController();
-  void logout() async {
-    // Clear user login details from shared preferences
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove('username');
-    prefs.remove('password');
-    prefs.remove('jwt_token');
-
-    // Navigate back to the login page
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => SingIN()),
-    );
-  }
 
   Map<String, dynamic> decodeJwt(String token) {
     try {
@@ -126,10 +114,12 @@ class _HomepageState extends State<Homepage> {
           actions: [
             IconButton(
                 onPressed: () async {
-                  logout();
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => Profilepage()),
+                  );
                 },
                 icon: Icon(
-                  Icons.exit_to_app,
+                  Icons.person,
                   size: 30,
                   color: Colors.black,
                 ))
@@ -160,7 +150,7 @@ class _HomepageState extends State<Homepage> {
               ),
               NavigationDestination(
                 icon: Icon(Icons.eco),
-                label: 'Plant Info',
+                label: 'Crops Info',
               ),
             ],
           ),
