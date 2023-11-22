@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:eco/auth/signin.dart';
+import 'package:eco/auth/splash.dart';
 
 import 'package:geolocator/geolocator.dart';
 
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.lightBlue,
         useMaterial3: true,
       ),
-      home: SingIN(),
+      home: Splash(),
     );
   }
 }

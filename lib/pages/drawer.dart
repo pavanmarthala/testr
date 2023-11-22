@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'package:eco/auth/signin.dart';
+import 'package:eco/pages/User_homePage.dart';
 import 'package:eco/pages/info/Add_User.dart';
 import 'package:eco/pages/info/assestinfo/user_profile.dart';
 import 'package:http/http.dart' as http;
@@ -359,7 +360,7 @@ class _MydrawerState extends State<Mydrawer> {
                           String? username = prefs.getString('username');
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
-                                builder: (context) => Homepage(username!)),
+                                builder: (context) => UserHomePage(username!)),
                           );
                         },
                       ),
