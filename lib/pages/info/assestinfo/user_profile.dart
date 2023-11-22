@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors, use_build_context_synchronously
 
-import 'package:eco/pages/Drawer.dart';
+import 'package:eco/pages/info/assestinfo/user_deawer.dart';
 
 import 'dart:convert';
 
@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 
+// ! Note: thois profile for user
 class Myprofile extends StatefulWidget {
   @override
   State<Myprofile> createState() => _MyprofileState();
@@ -96,8 +97,8 @@ class _MyprofileState extends State<Myprofile> {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Colors.blueGrey.withOpacity(0.2),
-              Colors.blueGrey,
+              Colors.teal,
+              Colors.teal.withOpacity(0.4),
             ],
           ),
         ),
@@ -110,7 +111,7 @@ class _MyprofileState extends State<Myprofile> {
       childDecoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
-      drawer: Mydrawer(),
+      drawer: UserDeawer(),
       child: Scaffold(
         backgroundColor: Colors.teal,
         appBar: AppBar(
