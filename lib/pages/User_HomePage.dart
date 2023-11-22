@@ -1,6 +1,8 @@
-import 'package:eco/pages/Drawer.dart';
+// ignore_for_file: file_names
+
 import 'package:eco/pages/Plants_LandingPage.dart';
 import 'package:eco/pages/Tree_LandingPage.dart';
+import 'package:eco/pages/info/assestinfo/user_deawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 
@@ -56,7 +58,7 @@ class _UserHomePageState extends State<UserHomePage> {
       childDecoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
-      drawer: Mydrawer(),
+      drawer: UserDeawer(),
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,

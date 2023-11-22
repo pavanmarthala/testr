@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api, prefer_const_constructors
 
 import 'dart:convert';
 
@@ -49,9 +49,7 @@ class _SplashState extends State<Splash> {
     if (jwtToken == null) {
       // If the token is not found, go to the login page.
       Navigator.pushReplacement(
-          // ignore: prefer_const_constructors
-          context,
-          MaterialPageRoute(builder: (context) => SingIN()));
+          context, MaterialPageRoute(builder: (context) => SingIN()));
     } else {
       // Decode the JWT token
       Map<String, dynamic> decodedToken = decodeToken(jwtToken);
