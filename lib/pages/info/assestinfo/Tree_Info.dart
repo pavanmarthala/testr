@@ -1,8 +1,12 @@
-// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, prefer_const_literals_to_create_immutables, depend_on_referenced_packages, unused_element, sort_child_properties_last
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, prefer_const_literals_to_create_immutables, depend_on_referenced_packages, unused_element, sort_child_properties_last, avoid_print
 
 import 'dart:convert';
 import 'dart:io';
+<<<<<<< HEAD
 import 'dart:typed_data';
+=======
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+>>>>>>> 1f745d8c3c6736c2a0f7f2770de8fe409e5be44a
 import 'package:http_parser/http_parser.dart' show MediaType;
 import 'package:geolocator/geolocator.dart';
 
@@ -189,6 +193,19 @@ class _TreeInfoState extends State<TreeInfo> {
         // Request accepted, but response might be empty
         print('Image upload accepted, processing...');
         print('Response: ${await response.stream.bytesToString()}');
+        showToast(
+          "Image uploaded successfully",
+          position: StyledToastPosition.top,
+          context: context,
+          animation: StyledToastAnimation.slideFromTop,
+          reverseAnimation: StyledToastAnimation.slideToBottom,
+          duration: Duration(seconds: 4),
+          animDuration: Duration(seconds: 1),
+          curve: Curves.elasticOut,
+          reverseCurve: Curves.linear,
+          // backgroundColor: Colors.red,
+          textStyle: TextStyle(color: Colors.white, fontSize: 16),
+        );
       } else if (response.statusCode == 200) {
         // Image uploaded successfully
         print('Image uploaded successfully');
@@ -285,32 +302,40 @@ class _TreeInfoState extends State<TreeInfo> {
                 children: [
                   Column(
                     children: <Widget>[
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.04,
-                        width: MediaQuery.of(context).size.width * 0.27,
-                        decoration: BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.circular(7)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.clear,
-                              color: Colors.white,
-                              size: MediaQuery.of(context).size.width * 0.032,
-                            ),
-                            SizedBox(
-                              width: 4,
-                            ),
-                            Text(
-                              'Clear',
-                              style: TextStyle(
-                                fontSize:
-                                    MediaQuery.of(context).size.width * 0.032,
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context).pop(); // Close the dialog
+                          setState(() {
+                            _selectedImage = null; // Clear the selected image
+                          });
+                        },
+                        child: Container(
+                          height: MediaQuery.of(context).size.height * 0.04,
+                          width: MediaQuery.of(context).size.width * 0.27,
+                          decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(7)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.clear,
                                 color: Colors.white,
+                                size: MediaQuery.of(context).size.width * 0.032,
                               ),
-                            ),
-                          ],
+                              SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                'Clear',
+                                style: TextStyle(
+                                  fontSize:
+                                      MediaQuery.of(context).size.width * 0.032,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       )
                     ],
@@ -320,40 +345,46 @@ class _TreeInfoState extends State<TreeInfo> {
                   ),
                   Column(
                     children: <Widget>[
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.04,
-                        width: MediaQuery.of(context).size.width * 0.27,
-                        decoration: BoxDecoration(
-                            // color: Colors.red,
-                            border: Border.all(
-                                color: Colors.green, style: BorderStyle.solid),
-                            borderRadius: BorderRadius.circular(7)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.upload,
-                              color: Colors.green,
-                              size: MediaQuery.of(context).size.width * 0.035,
-                            ),
-                            SizedBox(
-                              width: 4,
-                            ),
-                            Text(
-                              'upload',
-                              style: TextStyle(
-                                fontSize:
-                                    MediaQuery.of(context).size.width * 0.035,
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context).pop(); // Close the dialog
+                          _uploadImage(imageFile);
+                        },
+                        child: Container(
+                          height: MediaQuery.of(context).size.height * 0.04,
+                          width: MediaQuery.of(context).size.width * 0.27,
+                          decoration: BoxDecoration(
+                              // color: Colors.red,
+                              border: Border.all(
+                                  color: Colors.green,
+                                  style: BorderStyle.solid),
+                              borderRadius: BorderRadius.circular(7)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.upload,
                                 color: Colors.green,
+                                size: MediaQuery.of(context).size.width * 0.035,
                               ),
-                            ),
-                          ],
+                              SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                'upload',
+                                style: TextStyle(
+                                  fontSize:
+                                      MediaQuery.of(context).size.width * 0.035,
+                                  color: Colors.green,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       )
                       // OutlinedButton(
                       //     onPressed: () {
-                      //       Navigator.of(context).pop(); // Close the dialog
-                      //       _uploadImage(imageFile);
+
                       //     },
 
                       //     style: OutlinedButton.styleFrom(
@@ -585,44 +616,44 @@ class _TreeInfoState extends State<TreeInfo> {
                                             ],
                                           ),
                                         ),
-                                        Positioned(
-                                          left: -18,
-                                          top:
-                                              85, // Adjust the position as needed
-                                          child: IconButton(
-                                            icon: Icon(Icons.chevron_left),
-                                            onPressed: () {
-                                              // Navigate to the previous image
-                                              if (index > 0) {
-                                                // Check if it's not the first image
-                                                _pageController.previousPage(
-                                                  duration: Duration(
-                                                      milliseconds: 300),
-                                                  curve: Curves.ease,
-                                                );
-                                              }
-                                            },
-                                          ),
-                                        ),
-                                        Positioned(
-                                          right: -18,
-                                          top:
-                                              85, // Adjust the position as needed
-                                          child: IconButton(
-                                            icon: Icon(Icons.chevron_right),
-                                            onPressed: () {
-                                              // Navigate to the next image
-                                              if (index < images.length - 1) {
-                                                // Check if it's not the last image
-                                                _pageController.nextPage(
-                                                  duration: Duration(
-                                                      milliseconds: 300),
-                                                  curve: Curves.ease,
-                                                );
-                                              }
-                                            },
-                                          ),
-                                        ),
+                                        // Positioned(
+                                        //   // left: -18,
+                                        //   top:
+                                        //       85, // Adjust the position as needed
+                                        //   child: IconButton(
+                                        //     icon: Icon(Icons.chevron_left),
+                                        //     onPressed: () {
+                                        //       // Navigate to the previous image
+                                        //       if (index > 0) {
+                                        //         // Check if it's not the first image
+                                        //         _pageController.previousPage(
+                                        //           duration: Duration(
+                                        //               milliseconds: 300),
+                                        //           curve: Curves.ease,
+                                        //         );
+                                        //       }
+                                        //     },
+                                        //   ),
+                                        // ),
+                                        // Positioned(
+                                        //   right: -18,
+                                        //   top:
+                                        //       85, // Adjust the position as needed
+                                        //   child: IconButton(
+                                        //     icon: Icon(Icons.chevron_right),
+                                        //     onPressed: () {
+                                        //       // Navigate to the next image
+                                        //       if (index < images.length - 1) {
+                                        //         // Check if it's not the last image
+                                        //         _pageController.nextPage(
+                                        //           duration: Duration(
+                                        //               milliseconds: 300),
+                                        //           curve: Curves.ease,
+                                        //         );
+                                        //       }
+                                        //     },
+                                        //   ),
+                                        // ),
                                       ],
                                     );
                                   },
