@@ -367,7 +367,7 @@ class _MydrawerState extends State<Mydrawer> {
                           String? username = prefs.getString('username');
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
-                                builder: (context) => UserHomePage(username!)),
+                                builder: (context) => Userhomepage(username!)),
                           );
                         },
                       ),

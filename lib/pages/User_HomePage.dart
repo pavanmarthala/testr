@@ -1,20 +1,18 @@
-// ignore_for_file: file_names
-
 import 'package:eco/pages/Plants_LandingPage.dart';
 import 'package:eco/pages/Tree_LandingPage.dart';
 import 'package:eco/pages/info/assestinfo/user_deawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 
-class UserHomePage extends StatefulWidget {
+class Userhomepage extends StatefulWidget {
   final String userId;
-  const UserHomePage(this.userId, {super.key});
+  const Userhomepage(this.userId, {super.key});
 
   @override
-  _UserHomePageState createState() => _UserHomePageState();
+  _UserhomepageState createState() => _UserhomepageState();
 }
 
-class _UserHomePageState extends State<UserHomePage> {
+class _UserhomepageState extends State<Userhomepage> {
   int index = 0;
   List<Widget> screens = [];
 
