@@ -42,8 +42,8 @@ class _UserHomePageState extends State<UserHomePage> {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Colors.blueGrey.withOpacity(0.2),
-              Colors.blueGrey,
+              Colors.teal,
+              Colors.teal.withOpacity(0.4),
             ],
           ),
         ),

@@ -175,6 +175,10 @@ class _UserInfoState extends State<UserInfo> {
           }
         },
       ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {},
+      //   child: Icon(Icons.abc),
+      // ),
       floatingActionButton: FloatingActionButton.extended(
         // onPressed: _pickImage,
         onPressed: () {

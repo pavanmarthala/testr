@@ -188,7 +188,10 @@ class _TreeLandingPageState extends State<TreeLandingPage> {
                                 gradient: LinearGradient(
                                   begin: Alignment.topLeft,
                                   end: Alignment.bottomRight,
-                                  colors: [Colors.blue, Colors.teal],
+                                  colors: [
+                                    Colors.teal,
+                                    Colors.lightGreen.withOpacity(0.3),
+                                  ],
                                 ),
                                 borderRadius: BorderRadius.circular(15),
                                 // border: Border.all(),
@@ -214,25 +217,27 @@ class _TreeLandingPageState extends State<TreeLandingPage> {
                                             Text(
                                               'ID',
                                               style: TextStyle(
-                                                fontSize: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.035,
-                                              ),
+                                                  fontSize:
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .width *
+                                                          0.035,
+                                                  fontWeight: FontWeight.w600),
                                             ),
                                             SizedBox(
                                                 width: MediaQuery.of(context)
                                                         .size
                                                         .width *
-                                                    0.4),
+                                                    0.355),
                                             Text(
                                               device["id"] ?? "",
                                               style: TextStyle(
-                                                fontSize: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.035,
-                                              ),
+                                                  fontSize:
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .width *
+                                                          0.035,
+                                                  fontWeight: FontWeight.w600),
                                             ),
                                           ],
                                         ),
@@ -309,7 +314,7 @@ class _TreeLandingPageState extends State<TreeLandingPage> {
                                                 fontSize: MediaQuery.of(context)
                                                         .size
                                                         .width *
-                                                    0.035,
+                                                    0.036,
                                               ),
                                             ),
                                             SizedBox(

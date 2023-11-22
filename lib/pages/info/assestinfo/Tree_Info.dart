@@ -2,11 +2,8 @@
 
 import 'dart:convert';
 import 'dart:io';
-<<<<<<< HEAD
 import 'dart:typed_data';
-=======
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
->>>>>>> 1f745d8c3c6736c2a0f7f2770de8fe409e5be44a
 import 'package:http_parser/http_parser.dart' show MediaType;
 import 'package:geolocator/geolocator.dart';
 
@@ -792,21 +789,19 @@ class _ImageFullScreenState extends State<ImageFullScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Image.memory(
-                _decodeImage(widget.imageUrls[currentIndex]),
-                fit: BoxFit.contain,
-              ),
-            ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 IconButton(
                   icon: Icon(Icons.arrow_back),
                   onPressed: _goToPreviousImage,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.height * 0.33,
+                  child: Image.memory(
+                    _decodeImage(widget.imageUrls[currentIndex]),
+                    fit: BoxFit.contain,
+                  ),
                 ),
                 IconButton(
                   icon: Icon(Icons.arrow_forward),

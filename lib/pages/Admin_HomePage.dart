@@ -185,7 +185,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .height *
-                                                0.13,
+                                                0.118,
                                           ),
                                           Text(
                                             device["id"] ?? "",

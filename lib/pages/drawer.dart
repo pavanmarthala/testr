@@ -2,11 +2,7 @@
 
 import 'dart:convert';
 import 'package:eco/auth/signin.dart';
-<<<<<<< HEAD
-import 'package:eco/pages/User_HomePage.dart';
-=======
 import 'package:eco/pages/User_homePage.dart';
->>>>>>> cfb2751b32eddbcaa3fda7eade2b17ee926d1041
 import 'package:eco/pages/info/Add_User.dart';
 import 'package:eco/pages/info/assestinfo/user_profile.dart';
 import 'package:http/http.dart' as http;
@@ -356,8 +352,15 @@ class _MydrawerState extends State<Mydrawer> {
                         ],
                       ),
                       ListTile(
-                        leading: const Icon(Icons.home_outlined),
-                        title: const Text("Home"),
+                        leading: const Icon(
+                          Icons.home_outlined,
+                          color: Colors.black,
+                        ),
+                        title: const Text(
+                          "Home",
+                          style: TextStyle(
+                              color: Colors.black, fontWeight: FontWeight.w400),
+                        ),
                         onTap: () async {
                           SharedPreferences prefs =
                               await SharedPreferences.getInstance();
@@ -376,8 +379,15 @@ class _MydrawerState extends State<Mydrawer> {
                       //   },
                       // ),
                       ListTile(
-                        leading: const Icon(Icons.person_outlined),
-                        title: const Text("My Profile"),
+                        leading: const Icon(
+                          Icons.person_outlined,
+                          color: Colors.black,
+                        ),
+                        title: const Text(
+                          "My Profile",
+                          style: TextStyle(
+                              color: Colors.black, fontWeight: FontWeight.w400),
+                        ),
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
@@ -387,13 +397,27 @@ class _MydrawerState extends State<Mydrawer> {
                         },
                       ),
                       ListTile(
-                        leading: const Icon(Icons.notifications_outlined),
-                        title: const Text("Notification"),
+                        leading: const Icon(
+                          Icons.notifications_outlined,
+                          color: Colors.black,
+                        ),
+                        title: const Text(
+                          "Notification",
+                          style: TextStyle(
+                              color: Colors.black, fontWeight: FontWeight.w400),
+                        ),
                         onTap: () {},
                       ),
                       ListTile(
-                        leading: const Icon(Icons.star_outlined),
-                        title: const Text("Rating"),
+                        leading: const Icon(
+                          Icons.star_outlined,
+                          color: Colors.black,
+                        ),
+                        title: const Text(
+                          "Rating",
+                          style: TextStyle(
+                              color: Colors.black, fontWeight: FontWeight.w400),
+                        ),
                         onTap: () {},
                       ),
                       // ListTile(
@@ -407,8 +431,15 @@ class _MydrawerState extends State<Mydrawer> {
                       //   onTap: () {},
                       // ),
                       ListTile(
-                        leading: const Icon(Icons.exit_to_app_outlined),
-                        title: const Text("Log out"),
+                        leading: const Icon(
+                          Icons.exit_to_app_outlined,
+                          color: Colors.black,
+                        ),
+                        title: const Text(
+                          "Log out",
+                          style: TextStyle(
+                              color: Colors.black, fontWeight: FontWeight.w400),
+                        ),
                         onTap: () {
                           logout();
                         },
@@ -423,17 +454,32 @@ class _MydrawerState extends State<Mydrawer> {
                         child: const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("contact support"),
+                            Text(
+                              "contact support",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w400),
+                            ),
                             SizedBox(
                               height: 10,
                             ),
                             Row(
                               children: [
-                                Text("call us:"),
+                                Text(
+                                  "call us:",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w400),
+                                ),
                                 SizedBox(
                                   width: 10,
                                 ),
-                                Text("123456789"),
+                                Text(
+                                  "123456789",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w400),
+                                ),
                               ],
                             ),
                             SizedBox(
@@ -443,11 +489,21 @@ class _MydrawerState extends State<Mydrawer> {
                               scrollDirection: Axis.horizontal,
                               child: Row(
                                 children: [
-                                  Text("Mail us:"),
+                                  Text(
+                                    "Mail us:",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w400),
+                                  ),
                                   SizedBox(
                                     width: 10,
                                   ),
-                                  Text("Support@gmail.com"),
+                                  Text(
+                                    "Support@gmail.com",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w400),
+                                  ),
                                 ],
                               ),
                             ),
