@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:eco/auth/forgot.dart';
 import 'package:eco/auth/register.dart';
 import 'package:eco/pages/Admin_HomePage.dart';
+import 'package:eco/pages/homepage.dart';
 import 'package:eco/pages/user_HomePage.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:http/http.dart' as http;
@@ -85,7 +86,7 @@ class _SingINState extends State<SingIN> {
           // Navigate to the user panel (Landingpage)
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) => Userhomepage(userId),
+              builder: (context) => Homepage(userId),
             ),
           );
         }

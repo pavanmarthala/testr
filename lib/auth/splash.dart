@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:eco/auth/signin.dart';
 import 'package:eco/pages/Admin_HomePage.dart';
 import 'package:eco/pages/User_homePage.dart';
+import 'package:eco/pages/homepage.dart';
 // import 'package:eco/pages/user_homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -68,7 +69,7 @@ class _SplashState extends State<Splash> {
         // User is not a superadmin, navigate to the user landing page.
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => Userhomepage(userId!),
+            builder: (context) => Homepage(userId!),
           ),
         );
       }
