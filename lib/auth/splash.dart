@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:eco/admin_pages/admin_landing_page.dart';
 import 'package:eco/auth/signin.dart';
 import 'package:eco/pages/Admin_HomePage.dart';
 import 'package:eco/pages/User_homePage.dart';
@@ -62,14 +63,14 @@ class _SplashState extends State<Splash> {
         // User is a superadmin, navigate to AdminLandingPage.
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => AdminHomePage(),
+            builder: (context) => Adminlandingpage(),
           ),
         );
       } else {
         // User is not a superadmin, navigate to the user landing page.
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => Homepage(userId!),
+            builder: (context) => Userhomepage(userId!),
           ),
         );
       }

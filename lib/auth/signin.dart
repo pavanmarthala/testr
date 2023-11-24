@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, use_build_context_synchronously, prefer_const_constructors
 
 import 'dart:convert';
+import 'package:eco/admin_pages/admin_landing_page.dart';
 import 'package:eco/auth/forgot.dart';
 import 'package:eco/auth/register.dart';
 import 'package:eco/pages/Admin_HomePage.dart';
@@ -79,14 +80,14 @@ class _SingINState extends State<SingIN> {
           // Navigate to the admin panel (Adminlandingpage)
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) => AdminHomePage(),
+              builder: (context) => Adminlandingpage(),
             ),
           );
         } else {
           // Navigate to the user panel (Landingpage)
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) => Homepage(userId),
+              builder: (context) => Userhomepage(userId),
             ),
           );
         }
