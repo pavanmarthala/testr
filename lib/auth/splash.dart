@@ -52,7 +52,7 @@ class _SplashState extends State<Splash> {
     if (jwtToken == null) {
       // If the token is not found, go to the login page.
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => SingIN()));
+          context, MaterialPageRoute(builder: (context) =>SingIN()));
     } else {
       // Decode the JWT token
       Map<String, dynamic> decodedToken = decodeToken(jwtToken);
@@ -63,14 +63,14 @@ class _SplashState extends State<Splash> {
         // User is a superadmin, navigate to AdminLandingPage.
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => Adminlandingpage(),
+            builder: (context) =>Adminlandingpage(),
           ),
         );
       } else {
         // User is not a superadmin, navigate to the user landing page.
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => Userhomepage(userId!),
+            builder: (context) =>Userhomepage(userId!),
           ),
         );
       }

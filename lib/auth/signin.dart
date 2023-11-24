@@ -80,14 +80,14 @@ class _SingINState extends State<SingIN> {
           // Navigate to the admin panel (Adminlandingpage)
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) => Adminlandingpage(),
+              builder: (context) =>Adminlandingpage(),
             ),
           );
         } else {
           // Navigate to the user panel (Landingpage)
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) => Userhomepage(userId),
+              builder: (context) =>Userhomepage(userId),
             ),
           );
         }
