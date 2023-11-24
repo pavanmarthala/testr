@@ -1,28 +1,24 @@
-// ignore_for_file: avoid_print, use_build_context_synchronously, prefer_const_constructors
 
 import 'dart:convert';
-import 'package:eco/admin_pages/admin_landing_page.dart';
-import 'package:eco/auth/forgot.dart';
-import 'package:eco/auth/register.dart';
-import 'package:eco/pages/Admin_HomePage.dart';
-import 'package:eco/pages/homepage.dart';
-import 'package:eco/pages/user_HomePage.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
-// import 'package:ecohex/auth/forgot.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SingIN extends StatefulWidget {
-  const SingIN({super.key});
+import '../admin_pages/admin_landing_page.dart';
+import '../user_pages/user_homepage.dart';
+
+class SigninPage extends StatefulWidget {
+  const SigninPage({super.key});
 
   @override
-  State<SingIN> createState() => _SingINState();
+  State<SigninPage> createState() => _SigninPageState();
 }
 
-class _SingINState extends State<SingIN> {
+class _SigninPageState extends State<SigninPage> {
   final formkey = GlobalKey<FormState>();
 
   final _usernameController = TextEditingController();
@@ -71,7 +67,7 @@ class _SingINState extends State<SingIN> {
 
         // Decode the token to check user role
         final Map<String, dynamic> decodedToken =
-            JwtDecoder.decode(data['token']);
+        JwtDecoder.decode(data['token']);
         String userId = decodedToken['sub'];
         List<dynamic> authorities = decodedToken['authorities'];
 
@@ -80,28 +76,18 @@ class _SingINState extends State<SingIN> {
           // Navigate to the admin panel (Adminlandingpage)
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) =>Adminlandingpage(),
+              builder: (context) => Adminlandingpage(),
             ),
           );
         } else {
           // Navigate to the user panel (Landingpage)
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) =>Userhomepage(userId),
+              builder: (context) => UserHomepage(userId),
             ),
           );
         }
       } else {
-        // Show a toast message for wrong credentials
-        // Fluttertoast.showToast(
-        //   msg: "Wrong credentials. Try again!",
-        //   toastLength: Toast.LENGTH_SHORT,
-        //   gravity: ToastGravity.BOTTOM,
-        //   timeInSecForIosWeb: 3,
-        //   backgroundColor: Colors.red,
-        //   textColor: Colors.white,
-        // );
-        //Simple to use, no global configuration
         showToast(
           "Wrong credentials. Try again!",
           position: StyledToastPosition.bottom,
@@ -204,6 +190,11 @@ class _SingINState extends State<SingIN> {
                         TextFormField(
                           controller: _passwordController,
                           obscureText: _obscureText,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(
+                                4), // Limit the input length to 4 digits
+                          ],
                           decoration: InputDecoration(
                             hintText: 'Password',
                             suffixIcon: IconButton(
@@ -240,7 +231,7 @@ class _SingINState extends State<SingIN> {
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor:
-                                  Color.fromARGB(255, 112, 112, 205),
+                              Color.fromARGB(255, 112, 112, 205),
                               fixedSize: const Size(650, 60),
                             ),
                             child: Text(
@@ -248,7 +239,7 @@ class _SingINState extends State<SingIN> {
                               style: TextStyle(
                                 fontSize: 20,
                                 color:
-                                    Colors.white, // Set the text color to white
+                                Colors.white, // Set the text color to white
                               ),
                             )),
                         const SizedBox(
@@ -258,11 +249,11 @@ class _SingINState extends State<SingIN> {
                           children: [
                             TextButton(
                               onPressed: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => ForgotPasswordPage(),
-                                  ),
-                                );
+                                // Navigator.of(context).push(
+                                //   MaterialPageRoute(
+                                //     builder: (context) => ForgotPasswordPage(),
+                                //   ),
+                                // );
                               },
                               child: const Text(
                                 "Forgot Password?",
@@ -275,11 +266,11 @@ class _SingINState extends State<SingIN> {
                             ),
                             TextButton(
                               onPressed: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => RegisterPage(),
-                                  ),
-                                );
+                                // Navigator.of(context).push(
+                                //   MaterialPageRoute(
+                                //     builder: (context) => RegisterPage(),
+                                //   ),
+                                // );
                               },
                               child: const Text(
                                 "Register?",

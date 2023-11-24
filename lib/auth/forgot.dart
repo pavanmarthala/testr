@@ -1,8 +1,9 @@
 // ignore_for_file: library_private_types_in_public_api, prefer_const_constructors, sort_child_properties_last
 
 import 'dart:async';
-import 'package:flutter/material.dart';
 import 'package:eco/auth/signin.dart';
+import 'package:flutter/material.dart';
+
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});
@@ -157,7 +158,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                               onPressed: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => SingIN(),
+                                    builder: (context) => SigninPage(),
                                   ),
                                 );
                               },

@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:eco/auth/splash.dart';
 
+import 'package:eco/spash_page.dart';
 import 'package:geolocator/geolocator.dart';
 
 import 'package:flutter/material.dart';
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.lightBlue,
         useMaterial3: true,
       ),
-      home: Splash(),
+      home: Splashpage(),
     );
   }
 }

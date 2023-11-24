@@ -3,10 +3,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:eco/auth/signin.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
+
+import '../auth/signin.dart';
 // ! Note: this profile for admin
 
 class Adminprofilepage extends StatefulWidget {
@@ -34,7 +35,7 @@ class _AdminprofilepageState extends State<Adminprofilepage> {
     // Navigate to the sign-in page and replace the current route
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => SingIN()),
+      MaterialPageRoute(builder: (context) =>SigninPage()),
     );
   }
 

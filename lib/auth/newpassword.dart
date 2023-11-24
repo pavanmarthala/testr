@@ -1,7 +1,7 @@
 // ignore_for_file: no_logic_in_create_state, library_private_types_in_public_api, prefer_const_constructors
 
-import 'package:flutter/material.dart';
 import 'package:eco/auth/signin.dart';
+import 'package:flutter/material.dart';
 
 class NewPasswordPage extends StatefulWidget {
   final String id;
@@ -97,7 +97,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                             onPressed: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) => SingIN(),
+                                  builder: (context) => SigninPage(),
                                 ),
                               );
                             },

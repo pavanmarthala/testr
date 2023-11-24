@@ -1,24 +1,21 @@
-// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api, prefer_const_constructors
-
 import 'dart:convert';
 
-import 'package:eco/admin_pages/admin_landing_page.dart';
+//import 'package:flutter/cupertino.dart';
 import 'package:eco/auth/signin.dart';
-import 'package:eco/pages/Admin_HomePage.dart';
-import 'package:eco/pages/User_homePage.dart';
-import 'package:eco/pages/homepage.dart';
-// import 'package:eco/pages/user_homepage.dart';
+import 'package:eco/user_pages/user_homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Splash extends StatefulWidget {
-  const Splash({Key? key}) : super(key: key);
+import 'admin_pages/admin_landing_page.dart';
+
+class Splashpage extends StatefulWidget {
+  const Splashpage({super.key});
 
   @override
-  _SplashState createState() => _SplashState();
+  State<Splashpage> createState() => _SplashpageState();
 }
 
-class _SplashState extends State<Splash> {
+class _SplashpageState extends State<Splashpage> {
   // Define the decodeToken method to decode the JWT token
   Map<String, dynamic> decodeToken(String token) {
     final parts = token.split('.');
@@ -52,7 +49,7 @@ class _SplashState extends State<Splash> {
     if (jwtToken == null) {
       // If the token is not found, go to the login page.
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) =>SingIN()));
+          context, MaterialPageRoute(builder: (context) => SigninPage()));
     } else {
       // Decode the JWT token
       Map<String, dynamic> decodedToken = decodeToken(jwtToken);
@@ -63,14 +60,14 @@ class _SplashState extends State<Splash> {
         // User is a superadmin, navigate to AdminLandingPage.
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) =>Adminlandingpage(),
+            builder: (context) => Adminlandingpage(),
           ),
         );
       } else {
         // User is not a superadmin, navigate to the user landing page.
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) =>Userhomepage(userId!),
+            builder: (context) => UserHomepage(userId!),
           ),
         );
       }
@@ -79,10 +76,6 @@ class _SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Image.asset('assets/EcoHex_Logo-removebg-preview.png'),
-      ),
-    );
+    return const Placeholder();
   }
 }

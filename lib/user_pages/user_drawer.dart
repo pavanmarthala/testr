@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:eco/auth/signin.dart';
 import 'package:eco/user_pages/user_homepage.dart';
 import 'package:eco/user_pages/user_profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../auth/signin.dart';
 
 class UserDrawer extends StatefulWidget {
   const UserDrawer({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class _UserDrawerState extends State<UserDrawer> {
 
     // Navigate back to the login page
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => SingIN()),
+      MaterialPageRoute(builder: (context) => SigninPage()),
     );
   }
 
