@@ -76,6 +76,10 @@ class _SplashpageState extends State<Splashpage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Center(
+        child: Image.asset('assets/EcoHex_Logo-removebg-preview.png'),
+      ),
+    );
   }
 }

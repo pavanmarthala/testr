@@ -74,7 +74,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          'ForgotPassword',
+                          'Forgot Password',
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),

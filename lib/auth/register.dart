@@ -1,5 +1,6 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:eco/auth/signin.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -42,7 +43,7 @@ class RegisterPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        'Register',
+                        'Sign Up',
                         style: const TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
@@ -96,13 +97,14 @@ class RegisterPage extends StatelessWidget {
                         ),
                         child: Text(
                           "Register",
-                          style: const TextStyle(fontSize: 20),
+                          style: const TextStyle(fontSize: 20,color: Colors.white),
                         ),
                       ),
                       const SizedBox(
                         height: 20,
                       ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           const SizedBox(
                             width: 5,
@@ -110,13 +112,17 @@ class RegisterPage extends StatelessWidget {
                           TextButton(
                             onPressed: () {
                               // Add your action here
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => SigninPage(),
+                              ),
+                              );
                             },
                             child: Text(
-                              "LogIN?",
+                              "Login",
                               style: const TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 16,
+                                fontSize: 20,
                               ),
                             ),
                           ),

@@ -1,5 +1,6 @@
 
 import 'dart:convert';
+import 'package:eco/auth/register.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../admin_pages/admin_landing_page.dart';
 import '../user_pages/user_homepage.dart';
+import 'forgot.dart';
 
 class SigninPage extends StatefulWidget {
   const SigninPage({super.key});
@@ -89,10 +91,10 @@ class _SigninPageState extends State<SigninPage> {
         }
       } else {
         showToast(
-          "Wrong credentials. Try again!",
-          position: StyledToastPosition.bottom,
+          "Wrong credentials.Try again!",
+          position: StyledToastPosition.top,
           context: context,
-          animation: StyledToastAnimation.slideFromBottom,
+          animation: StyledToastAnimation.slideFromTop,
           reverseAnimation: StyledToastAnimation.slideToBottom,
           duration: Duration(seconds: 4),
           animDuration: Duration(seconds: 1),
@@ -249,14 +251,14 @@ class _SigninPageState extends State<SigninPage> {
                           children: [
                             TextButton(
                               onPressed: () {
-                                // Navigator.of(context).push(
-                                //   MaterialPageRoute(
-                                //     builder: (context) => ForgotPasswordPage(),
-                                //   ),
-                                // );
+                                 Navigator.of(context).push(
+                                   MaterialPageRoute(
+                                    builder: (context) => ForgotPasswordPage(),
+                                   ),
+                                 );
                               },
                               child: const Text(
-                                "Forgot Password?",
+                                "Forgot Password",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
@@ -264,16 +266,16 @@ class _SigninPageState extends State<SigninPage> {
                                 ),
                               ),
                             ),
+                            SizedBox(width: 40,),
                             TextButton(
                               onPressed: () {
-                                // Navigator.of(context).push(
-                                //   MaterialPageRoute(
-                                //     builder: (context) => RegisterPage(),
-                                //   ),
-                                // );
+                                 Navigator.of(context).push(MaterialPageRoute(
+                                     builder: (context) => RegisterPage(),
+                                   ),
+                                 );
                               },
                               child: const Text(
-                                "Register?",
+                                "Register",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
